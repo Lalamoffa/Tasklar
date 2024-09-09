@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Satış Sistemi</title>
+    <style>
+        body {
+            background-color: rgb(191, 224, 213);
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+
+        .product {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Malın Satışı</h2>
+
+        <div class="product">
+            <label for="product">Malı seçin:</label>
+            <select id="product">
+                <option value="alma" data-price="1.5">Alma - 1.5 AZN</option>
+                <option value="banan" data-price="2">Banan - 2 AZN</option>
+                <option value="armud" data-price="1.8">Armud - 1.8 AZN</option>
+            </select>
+        </div>
+
+        <div class="quantity">
+            <label for="quantity">Miqdar (ədəd):</label>
+            <input type="number" id="quantity" value="1" min="1">
+        </div>
+
+        <button onclick="calculateTotal(); completeSale()">Satışı Tamamla</button>
+
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        function calculateTotal() {
+            // Seçilmiş malın qiyməti
+            const productElement = document.getElementById('product');
+            const selectedProduct = productElement.options[productElement.selectedIndex];
+            const price = parseFloat(selectedProduct.getAttribute('data-price'));
+
+            // Miqdarı əldə etmək
+            const quantity = parseInt(document.getElementById('quantity').value);
+
+            // Ümumi qiyməti hesabla
+            const total = price * quantity;
+
+            // Nəticəni göstər
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = `
+            <h3>Satış Uğurla Tamamlandı</h3>
+            <p>Seçilmiş Mal: ${selectedProduct.text}</p>
+            <p>Miqdar: ${quantity} ədəd</p>
+            <p>Ümumi Qiymət: ${total.toFixed(2)} AZN</p>
+        `;
+        }
+        function completeSale() {
+            // Satış tamamlandıqda hesablanmış toplam məbləği göstərmək
+            var total = calculateTotal();
+            if (total) {
+                document.getElementById("sale-info").innerText = `Satış tamamlandı. Toplam məbləğ: ${total} AZN`;
+
+                // Məlumat göstərildikdən 3 saniyə sonra əvvəlki səhifəyə qayıtmaq
+                setTimeout(function () {
+                    window.history.back();
+                }, 3000); // 3 saniyə gözləyir
+            }
+        }
+
+
+    </script>
+
+</body>
+
+</html>
