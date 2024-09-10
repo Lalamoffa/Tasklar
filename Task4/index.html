@@ -21,6 +21,18 @@
             align-items: center;
             height: 100vh;
         }
+        .btn{
+            font-size: 20px;
+            padding: 10px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50px;
+            margin-left: 10px;
+        }
+        .btn:hover{
+            background-color: #d3d0d0;
+
+        }
 
         #startButton {
             font-size: 24px;
@@ -49,6 +61,7 @@
     <div class="container">
         <h1>Səsli Axtarış</h1>
         <input type="text" id="searchInput" placeholder="Axtar...">
+        <button class="btn" type="submit">Axtar</button>
         <button id="startButton" style="margin-left: 15px;">
             <i class="fas fa-microphone"></i>
         </button>
