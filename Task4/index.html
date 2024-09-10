@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Search</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+
+
+    <style>
+        body {
+            background-color: darkgrey;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #startButton {
+            font-size: 24px;
+            padding: 10px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer
+        }
+
+        #startButton:hover {
+            background-color: #d3d0d0;
+
+        }
+
+        #searchInput {
+            width: 300px;
+            padding: 10px;
+            margin-left: 15px;
+            border-radius: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Səsli Axtarış</h1>
+        <input type="text" id="searchInput" placeholder="Axtar...">
+        <button id="startButton" style="margin-left: 15px;">
+            <i class="fas fa-microphone"></i>
+        </button>
+        <audio id="audio" src="click.wav"></audio>
+    </div>
+
+    <script>
+        // Səs tanıma funksiyasını yaratmaq üçün Web Speech API istifadə edirik
+        window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'az-AZ'; // Dil seçimi, burada Azərbaycan dilinə təyin edilib
+
+        const searchInput = document.getElementById('searchInput');
+        const startButton = document.getElementById('startButton');
+        const audio = document.getElementById('audio');
+
+        let idleTimeout; // Danışmamağa görə timeout
+        let isRecognitionActive = false; // Mikrofonun aktiv olub-olmadığını izləmək
+
+        // Səs tanıma başladıqda
+        startButton.addEventListener('click', () => {
+            // Səs faylını oynat
+            audio.play();
+
+            // Səs tanıma prosesini başlat
+            recognition.start();
+            isRecognitionActive = true;
+            console.log("Mikrofon aktivdir.");
+            resetIdleTimer();
+
+        });
+
+        // Səs tanıma nəticəsini əldə etdikdə
+        recognition.addEventListener('result', (event) => {
+            const transcript = event.results[0][0].transcript; // Tanınmış mətni götürürük
+            searchInput.value = transcript; // Tanınmış mətni axtarış sahəsinə yazırıq
+            console.log('Axtarış sorğusu:', transcript);
+            resetIdleTimer(); // Nəticə alındıqda 5 saniyəlik sayacı sıfırlayırıq
+
+
+            // Burada avtomatik olaraq axtarışı başlada bilərsiniz:
+            // searchGoogle(transcript); // Məsələn, Google axtarışı
+        });
+
+
+
+        // 3 saniyə danışılmadıqda mikrafonu dayandırmaq üçün timeout-u yeniləmək
+        function resetIdleTimer() {
+            clearTimeout(idleTimeout);
+            idleTimeout = setTimeout(() => {
+                if (isRecognitionActive) {
+                    recognition.stop();
+                    console.log("3 saniyə ərzində danışılmadı, mikrafon dayandırıldı.");
+                }
+            }, 3000); // 3 saniyəlik gözləmə
+        }
+
+        document.addEventListener('click', (event) => {
+            if (isRecognitionActive && !startButton.contains(event.target)) {
+                recognition.stop();
+                console.log("Başqa yerə kliklənildi, mikrafon dayandırıldı.");
+            }
+        });
+
+        // Səs tanıma tamamlandıqda (danışıq bitdikdə)
+        recognition.addEventListener('end', () => {
+            isRecognitionActive = false;
+            console.log("Mikrofon dayandırıldı.");
+
+        });
+
+        // Məsələn, Google üzərində axtarış etmək üçün:
+        function searchGoogle(query) {
+            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+            window.open(searchUrl, '_blank'); // Axtarışı yeni sekmede açır
+        }
+
+    </script>
+</body>
+
+</html>
