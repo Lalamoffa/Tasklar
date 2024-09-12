@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cədvəl Nümunəsi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table,
+        th,
+        td {
+            border: 1px solid #ddd;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        tr:hover {
+            background-color: #ddd;
+        }
+
+        .row {
+            margin-left: 20px;
+        }
+
+        .copy-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .copy-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="container">
+        <h2>Cədvəl Nümunəsi</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Ad</th>
+                    <th>Yaş</th>
+                    <th>Şəhər</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Əli</td>
+                    <td>30</td>
+                    <td>Bakı</td>
+                    <td>Aktiv</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Aynur</td>
+                    <td>25</td>
+                    <td>Gəncə</td>
+                    <td>Passiv</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Mehman</td>
+                    <td>45</td>
+                    <td>Şəki</td>
+                    <td>Aktiv</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Gülşən</td>
+                    <td>22</td>
+                    <td>Lənkəran</td>
+                    <td>Passiv</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <button class="copy-btn" id="copy-btn">Screen</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            document.getElementById('copy-btn').addEventListener('click', () => {
+                const container = document.getElementById('container');
+
+                html2canvas(container).then(canvas => {
+                    canvas.toBlob(blob => {
+                        navigator.clipboard.write([
+                            new ClipboardItem({
+                                [blob.type]: blob
+                            })
+                        ]).then(() => {
+                            toastr.success('Görünüş buferə yapışdırıldı');
+                        }).catch(err => {
+                            toastr.error('Görünüş buferə yapışdırıla bilmədi');
+                            console.error('Could not copy image to clipboard', err);
+                        });
+                    });
+                });
+            });
+        });
+    </script>
+
+</body>
+
+</html>
