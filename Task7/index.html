@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Section</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .profile-container {
+            display: flex;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 800px;
+            align-items: flex-start;
+        }
+
+        .profile-pic {
+            position: relative;
+            margin-right: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 150px;
+            height: 150px;
+        }
+
+        .profile-pic img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #ddd;
+        }
+
+        .upload-icon {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            background-color: #007bff;
+            border-radius: 50%;
+            padding: 8px;
+            border: 2px solid white;
+        }
+
+        .upload-icon::before {
+            content: "+";
+            font-size: 24px;
+            color: white;
+        }
+
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+        }
+
+        .profile-info h1 {
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .profile-info p {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.4;
+        }
+
+        .edit-button {
+            background-color: #007bff;
+            /* Mavi fon rəngi */
+            color: #fff;
+            /* Ağ mətn rəngi */
+            border: none;
+            /* Kənar yoxdur */
+            border-radius: 20px;
+            /* Düzgün kənar dəyirmi */
+            padding: 10px 20px;
+            /* Yuxarı-aşağı və sağ-sol boşluq */
+            font-size: 15px;
+            /* Mətnin ölçüsü */
+            font-weight: 700;
+            /* Qalın mətn */
+            text-align: center;
+            /* Mətni mərkəzləşdirir */
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+            /* Rəng dəyişmələri üçün keçid */
+            margin-top: 30px;
+        }
+
+        .edit-button:hover {
+            background-color: #0056b3;
+            /* Hover zamanı daha tünd mavi fon rəngi */
+            color: #e0e0e0;
+            /* Hover zamanı açıq rəng mətn */
+        }
+
+        .edit-button:focus {
+            outline: none;
+            /* Fokusda kənar xətt yoxdur */
+        }
+
+        .profile-form {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            display: none;
+            /* Formu gizlədir */
+        }
+
+        .profile-form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .profile-form input,
+        .profile-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .profile-form textarea {
+            resize: vertical;
+        }
+
+        .yenilə {
+            background-color: #007bff;
+            border: none;
+            border-radius: 20px;
+            padding: 10px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+
+        }
+
+        .yenilə:hover {
+            background-color: #0056b3;
+        }
+
+
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="profile-container">
+        <div class="profile-pic">
+            <img id="profile-image" src="default-img.jpg" alt="Default Profile Picture" />
+            <label for="profile-image-input">
+                <i class="upload-icon"></i>
+            </label>
+            <input type="file" id="profile-image-input" accept="image/*" onchange="validateImage()">
+        </div>
+        <div class="profile-info">
+            <h1 id="name">Ad Soyad</h1>
+            <p id="bio">Bu, qısa bio məlumatınızdır. Burada özünüz haqqında bir neçə cümlə yaza bilərsiniz.</p>
+            <button class="edit-button" onclick="showForm()">Profil Məlumatını Yenilə</button>
+        </div>
+        <div class="profile-form">
+            <label for="name-input">Ad və Soyad:</label>
+            <input type="text" id="name-input" placeholder="Adınızı və soyadınızı daxil edin">
+
+            <label for="bio-input">Bio məlumatları:</label>
+            <textarea id="bio-input" rows="3" placeholder="Özünüz haqqında məlumat daxil edin"></textarea>
+
+            <button class="yenilə" onclick="updateProfile()">Yenilə</button>
+        </div>
+    </div>
+
+    <script>
+
+        function validateImage() {
+            const input = document.getElementById('profile-image-input');
+            const image = document.getElementById('profile-image');
+            const file = input.files[0];
+
+            if (file && file.type.startsWith('image/')) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    image.src = e.target.result; // Profil şəklini yenilə
+                };
+                reader.readAsDataURL(file);
+            } else {
+                alert("Zəhmət olmasa yalnız şəkil faylı seçin!");
+                input.value = ''; // Əgər şəkil faylı deyilsə, seçim təmizlənir
+            }
+        }
+
+        function updateProfile() {
+            const nameInput = document.getElementById('name-input').value;
+            const bioInput = document.getElementById('bio-input').value;
+
+            if (nameInput) {
+                document.getElementById('name').innerText = nameInput; // Ad və soyadı yenilə
+            }
+
+            if (bioInput) {
+                document.getElementById('bio').innerText = bioInput; // Bio məlumatını yenilə
+            }
+
+            // Formu gizlədir və məlumatları göstərir
+            document.querySelector('.profile-form').style.display = 'none';
+            document.querySelector('.profile-info').style.display = 'flex';
+        }
+
+        function showForm() {
+            // Formu göstərir və məlumatları gizlədir
+            document.querySelector('.profile-form').style.display = 'block';
+            document.querySelector('.profile-info').style.display = 'none';
+        }
+    </script>
+</body>
+
+</html>
