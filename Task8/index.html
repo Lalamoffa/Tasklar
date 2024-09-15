@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Validation</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        .input-group {
+            position: relative;
+            width: 300px;
+        }
+
+        input[type="password"],
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding-right: 40px;
+            /* Sağ tərəfə göz ikonu üçün boşluq */
+        }
+
+        .toggle-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #666;
+        }
+
+        .error {
+            color: red;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            display: block;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <div>
+        <div class="input-group">
+            <input type="password" id="password-input" placeholder="Şifrəni daxil edin">
+            <span class="toggle-icon" onclick="togglePasswordVisibility()">🙈</span>
+        </div>
+        <div id="error-message" class="error"></div>
+        <button onclick="validatePassword()">Şifrəni Yoxla</button>
+    </div>
+
+
+    <script>
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password-input');
+            const toggleIcon = document.querySelector('.toggle-icon');
+
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.textContent = '👁️'; // Şifrə görünür, ikon açıq gözdür
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.textContent = '🙈'; // Şifrə gizli, ikon bağlı gözdür
+            }
+        }
+
+        function validatePassword() {
+            const passwordInput = document.getElementById('password-input').value;
+            const errorMessage = document.getElementById('error-message');
+            let errors = [];
+
+            // Şifrə uzunluğu 8-15 simvol olmalıdır
+            if (passwordInput.length < 8 || passwordInput.length > 15) {
+                errors.push("Şifrə 8-15 simvol aralığında olmalıdır.");
+            }
+
+            // İlk simvol böyük hərf olmalıdır
+            const firstChar = passwordInput.charAt(0);
+            if (!firstChar.match(/[A-Z]/)) {
+                errors.push("Şifrənin ilk simvolu böyük hərf olmalıdır.");
+            }
+
+            // Şifrənin son simvolu '.' olmamalıdır
+            const lastChar = passwordInput.charAt(passwordInput.length - 1);
+            if (lastChar === '.') {
+                errors.push("Şifrənin son simvolu '.' ola bilməz.");
+            }
+
+            if (passwordInput === '') {
+                errors.push("Şifrə boş ola bilməz.");
+            }
+
+            // Şifrənin qalan hissəsi hərflər, rəqəmlər və simvollardan ibarət ola bilər
+            const middleChars = passwordInput.slice(1, -1);
+            if (!middleChars.match(/^[A-Za-z0-9!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]*$/)) {
+                errors.push("Şifrənin ortasında yalnız hərflər, rəqəmlər və xüsusi simvollar ola bilər.");
+            }
+
+            // Bütün səhvləri göstər
+           
+            if (errors.length > 0) {
+                errorMessage.style.color = "red"; // Xətalar qırmızı rəngdə görünəcək
+                errorMessage.innerText = errors.join("\n");
+            } else {
+                errorMessage.style.color = "green"; // Şifrə keçərlidir mesajı yaşıl rəngdə görünəcək
+                errorMessage.innerText = "Şifrə keçərlidir!";
+            }
+
+        }
+    </script>
+
+</body>
+
+</html>

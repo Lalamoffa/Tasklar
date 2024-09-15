@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Generator</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .input-group {
+            position: relative;
+            width: 300px;
+        }
+        input[type="password"], input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box; /* Box-sizing təsiri altında tam uyğunlaşır */
+        }
+        .toggle-icon {
+            position: absolute;
+            top: 50%;
+            right: 10px;
+            top: 89px;
+            transform: translateY(-50%);
+            cursor: pointer;
+            font-size: 18px;
+            color: #333;
+        }
+        h3{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
+<body>
+    
+    <div class="input-group">
+        <h3>Random Şifrə</h3>
+        <input type="password" id="password-input" readonly placeholder="Təsadüfi şifrə buraya gələcək">
+        <span class="toggle-icon" id="toggle-icon" onclick="togglePasswordVisibility()">🔒</span>
+    </div>
+
+    <script>
+        let isPasswordVisible = false;
+
+        function generatePassword(length = 12) {
+            const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+[]{}|;:,.<>?';
+            let password = '';
+            for (let i = 0; i < length; i++) {
+                const randomIndex = Math.floor(Math.random() * characters.length);
+                password += characters[randomIndex];
+            }
+            document.getElementById('password-input').value = password;
+        }
+
+        function togglePasswordVisibility() {
+            const input = document.getElementById('password-input');
+            const icon = document.getElementById('toggle-icon');
+
+            isPasswordVisible = !isPasswordVisible;
+            input.type = isPasswordVisible ? 'text' : 'password';
+            icon.innerText = isPasswordVisible ? '🔓' : '🔒';
+
+            // Şifrəni yenilə, hər dəfə göz açıq və ya bağlı olduqda
+            generatePassword();
+        }
+
+        // Səhifə yükləndikdə ilkin şifrə yaradılır
+        generatePassword();
+    </script>
+
+</body>
+</html>
