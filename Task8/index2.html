@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
         * {
             box-sizing: border-box;
         }
+
         body {
             font-family: Arial, sans-serif;
             display: flex;
@@ -16,18 +18,23 @@
             height: 100vh;
             background-color: #f4f4f4;
         }
+
         .input-group {
             position: relative;
             width: 300px;
         }
-        input[type="password"], input[type="text"] {
+
+        input[type="password"],
+        input[type="text"] {
             width: 100%;
             padding: 10px;
             font-size: 16px;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-sizing: border-box; /* Box-sizing təsiri altında tam uyğunlaşır */
+            box-sizing: border-box;
+            /* Box-sizing təsiri altında tam uyğunlaşır */
         }
+
         .toggle-icon {
             position: absolute;
             top: 50%;
@@ -38,7 +45,8 @@
             font-size: 18px;
             color: #333;
         }
-        h3{
+
+        h3 {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -46,8 +54,9 @@
         }
     </style>
 </head>
+
 <body>
-    
+
     <div class="input-group">
         <h3>Random Şifrə</h3>
         <input type="password" id="password-input" readonly placeholder="Təsadüfi şifrə buraya gələcək">
@@ -84,4 +93,5 @@
     </script>
 
 </body>
+
 </html>
