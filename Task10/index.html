@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User List</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <style>
+        body {
+            background-color: #b2e7ff;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+        }
+
+        h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        #userList {
+            font-size: 24px;
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            text-align: center;
+        }
+
+        #userList li {
+            margin: 10px 0;
+        }
+
+        .button-container {
+            margin-top: 40px;
+        }
+
+        button {
+            padding: 15px 25px;
+            background-color: #9ea7a7;
+            margin: 0 10px;
+            border: none;
+            border-radius: 10px;
+            font-size: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #7d8787;
+        }
+
+        button:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>User List</h2>
+    <ol id="userList"></ol> <!-- İstifadəçi məlumatlarını buraya əlavə edəcəyik -->
+
+    <div class="button-container">
+        <button id="appendButton">Sona Əlavə Et (Append)</button>
+        <button id="prependButton">Başa Əlavə Et (Prepend)</button>
+    </div>
+
+    <script>
+        // JSON məlumat
+        var users = [
+            { "firstName": "Ali", "lastName": "Hüseynov" },
+            { "firstName": "Leyla", "lastName": "Əliyeva" },
+            { "firstName": "Rəşad", "lastName": "Məmmədov" },
+            { "firstName": "Nigar", "lastName": "Quliyeva" },
+            { "firstName": "Elvin", "lastName": "İbrahimov" }
+        ];
+
+        // Sona əlavə etmək üçün (append) düymə klikində
+        $('#appendButton').click(function() {
+            $.each(users, function(index, user) {
+                $('#userList').append('<li>' + user.firstName + ' ' + user.lastName + '</li>');
+            });
+        });
+
+        // Başa əlavə etmək üçün (prepend) düymə klikində
+        $('#prependButton').click(function() {
+            $.each(users, function(index, user) {
+                $('#userList').prepend('<li>' + user.firstName + ' ' + user.lastName + '</li>');
+            });
+        });
+    </script>
+
+</body>
+</html>
