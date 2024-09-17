@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Forması</title>
+    <style>
+        /* Form üslubu */
+        form {
+            width: 300px;
+            margin: 50px auto;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        input[type="email"] {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        input[type="email"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        #error-message {
+            color: red;
+            font-size: 14px;
+            display: none;
+            /* İlkin olaraq gizlidir */
+            margin-bottom: 10px;
+        }
+
+        /* X işarəsinin üslubu */
+        .clear-btn {
+            position: absolute;
+            right: 10px;
+            top: 40%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            cursor: pointer;
+            color: #fff;
+            background-color:#999;
+            border-radius: 10px;
+            border: none;
+            outline: none;
+        }
+
+        .clear-btn:hover {
+            background-color: #726d6d;
+            color: #333;
+
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form id="emailForm" novalidate> <!-- novalidate brauzerin daxili yoxlamasını deaktiv edir -->
+        <label for="email">E-mail ünvanınızı daxil edin:</label>
+        <div style="position: relative;">
+            <input type="email" id="email" placeholder="example@mail.com" required>
+            <button type="button" class="clear-btn" id="clearBtn">&times;</button> <!-- X işarəsi -->
+        </div>
+        <span id="error-message">Zəhmət olmasa düzgün e-mail ünvanı daxil edin.</span>
+        <input type="submit" value="Göndər">
+    </form>
+
+    <script>
+        // Form və elementləri seçirik
+        const form = document.getElementById('emailForm');
+        const emailInput = document.getElementById('email');
+        const errorMessage = document.getElementById('error-message');
+        const clearBtn = document.getElementById('clearBtn');
+
+        // X işarəsinə kliklədikdə input sahəsini təmizləyirik
+        clearBtn.addEventListener('click', function () {
+            emailInput.value = ''; // Input sahəsini təmizləyir
+            errorMessage.style.display = 'none'; // Səhv mesajını gizlədir
+            emailInput.focus(); // Input sahəsini yenidən fokuslayır
+        });
+
+        // Form submit edilərkən
+        form.addEventListener('submit', function (event) {
+            // E-mailin düzgün formatda olub-olmadığını yoxlayırıq
+            const emailValue = emailInput.value;
+            const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+            if (!emailPattern.test(emailValue)) {
+                // Əgər düzgün deyil, səhv mesajı göstər
+                errorMessage.style.display = 'block';
+                event.preventDefault(); // Formu göndərməyə mane ol
+            } else {
+                // Əgər düzgün formatdadırsa, səhv mesajını gizlət
+                errorMessage.style.display = 'none';
+            }
+        });
+    </script>
+
+</body>
+
+</html>

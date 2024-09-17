@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rəng Seçici və Kvadrat Dəyişimi</title>
+    <style>
+        /* Kvadratın ölçüləri və üslubu */
+        #colorSquare {
+            width: 150px;
+            height: 150px;
+            background-color: #ff0000;
+            /* İlkin rəng */
+            border: 1px solid #000;
+            margin-top: 20px;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100vh;
+        }
+
+        #colorSquare {
+            margin-left: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- Rəng seçici input -->
+        <label for="colorPicker">Rəng seçin:</label>
+        <input type="color" id="colorPicker" value="#ff0000">
+        <!-- Kvadrat formada div -->
+        <div id="colorSquare"></div>
+    </div>
+
+    <script>
+        // Rəng seçici elementini və kvadratı seç
+        const colorPicker = document.getElementById('colorPicker');
+        const colorSquare = document.getElementById('colorSquare');
+
+        // Rəng seçildikdə kvadratın rəngini dəyiş
+        colorPicker.addEventListener('input', function () {
+            colorSquare.style.backgroundColor = colorPicker.value;
+        });
+    </script>
+
+</body>
+
+</html>

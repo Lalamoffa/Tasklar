@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Yoxlama</title>
+    <style>
+        /* Form üslubu */
+        form {
+            width: 300px;
+            margin: 50px auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            position: relative;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"]:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        #error-message,
+        #errorMessage {
+            color: red;
+            font-size: 14px;
+            display: none;
+            margin-bottom: 10px;
+        }
+
+        .clear-btn {
+            padding: 10px;
+            margin-bottom: 5px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .clear-btn:hover {
+            background-color: #218838;
+        }
+
+        input[type="submit"] {
+            padding: 10px;
+            font-size: 16px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+
+<body>
+
+    <form id="numberForm" novalidate>
+        <input type="text" id="integerInput" placeholder="Tam ədəd" required>
+        <input type="text" id="decimalInput" placeholder="Kəsr ədəd" required>
+        <span id="error-message">Tam ədəd düzgün formatda deyil.</span>
+        <span id="errorMessage">Kəsr ədəd düzgün formatda deyil.</span>
+        <button type="button" class="clear-btn" id="clearBtn">Təmizlə</button>
+        <input type="submit" value="Göndər">
+    </form>
+
+    <script>
+        const form = document.getElementById('numberForm');
+        const integerInput = document.getElementById('integerInput');
+        const decimalInput = document.getElementById('decimalInput');
+        const errorMessage = document.getElementById('error-message');
+        const errorMsg = document.getElementById('errorMessage');
+        const clearBtn = document.getElementById('clearBtn');
+
+        clearBtn.addEventListener('click', function () {
+            integerInput.value = '';
+            decimalInput.value = '';
+            integerInput.focus();
+            errorMessage.style.display = 'none';
+            errorMsg.style.display = 'none';
+        });
+
+        form.addEventListener('submit', function (event) {
+            // Input dəyərləri
+            const integerValue = integerInput.value;
+            const decimalValue = decimalInput.value;
+
+            // Regex-lə yoxlama
+            const integerPattern = /^[0-9]+$/; // Tam ədədlər üçün (yalnız rəqəmlər)
+            const decimalPattern = /^[0-9]+\.[0-9]{1,3}$/; // Kəsr ədədlər üçün (3 rəqəmli desimal)
+
+            let valid = true;
+
+            // Tam ədəd yoxlama
+            if (!integerPattern.test(integerValue)) {
+                errorMessage.style.display = 'block'; // Tam ədəd səhv
+                valid = false;
+            } else {
+                errorMessage.style.display = 'none'; // Tam ədəd düzgündür
+            }
+
+            // Kəsr ədəd yoxlama
+            if (!decimalPattern.test(decimalValue)) {
+                errorMsg.style.display = 'block'; // Kəsr ədəd səhv
+                valid = false;
+            } else {
+                errorMsg.style.display = 'none'; // Kəsr ədəd düzgündür
+            }
+
+            if (!valid) {
+                event.preventDefault(); // Formun göndərilməsini dayandır
+            }
+        });
+    </script>
+
+</body>
+
+</html>
