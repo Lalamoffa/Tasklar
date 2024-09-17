@@ -37,11 +37,11 @@
 
         .toggle-icon {
             position: absolute;
-            top: 50%;
-            right: 10px;
+            top: 30%;
+            right: 45%;
             transform: translateY(-50%);
             cursor: pointer;
-            font-size: 18px;
+            font-size: 100px;
             color: #666;
         }
 
@@ -74,8 +74,8 @@
     <div>
         <div class="input-group">
             <input type="password" id="password-input" placeholder="Şifrəni daxil edin">
-            <span class="toggle-icon" onclick="togglePasswordVisibility()">🙈</span>
         </div>
+        <span class="toggle-icon" onclick="togglePasswordVisibility()">🙈</span>
         <div id="error-message" class="error"></div>
         <button onclick="validatePassword()">Şifrəni Yoxla</button>
     </div>
@@ -88,7 +88,7 @@
 
             if (passwordInput.type === 'password') {
                 passwordInput.type = 'text';
-                toggleIcon.textContent = '👁️'; // Şifrə görünür, ikon açıq gözdür
+                toggleIcon.textContent = '👀'; // Şifrə görünür, ikon açıq gözdür
             } else {
                 passwordInput.type = 'password';
                 toggleIcon.textContent = '🙈'; // Şifrə gizli, ikon bağlı gözdür

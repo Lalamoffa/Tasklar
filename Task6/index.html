@@ -89,7 +89,7 @@
 <body>
     <div class="container" id="container">
         <h2>Cədvəl Nümunəsi</h2>
-        <table>
+        <table id="myTable">
             <thead>
                 <tr>
                     <th>#</th>
@@ -148,9 +148,9 @@
 
         $(document).ready(function () {
             document.getElementById('copy-btn').addEventListener('click', () => {
-                const container = document.getElementById('container');
+                const table = document.getElementById('myTable');
 
-                html2canvas(container).then(canvas => {
+                html2canvas(table).then(canvas => {
                     canvas.toBlob(blob => {
                         navigator.clipboard.write([
                             new ClipboardItem({
