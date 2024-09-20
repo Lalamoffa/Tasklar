@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Sortable List</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <style>
+        #sortable {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            width: 200px;
+        }
+
+        #sortable li {
+            margin: 2px;
+            padding: 8px;
+            font-size: 18px;
+            background-color: #f2f2f2;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <ul id="sortable">
+        <li id="item-1" class="ui-state-default">Item 1</li>
+        <li id="item-2" class="ui-state-default">Item 2</li>
+        <li id="item-3" class="ui-state-default">Item 3</li>
+        <li id="item-4" class="ui-state-default">Item 4</li>
+        <li id="item-5" class="ui-state-default">Item 5</li>
+    </ul>
+
+    <p>Yenilənmiş sıralama: <span id="sortedOrder"></span></p>
+
+    <script>
+        $(function () {
+            // Sortable funksiyasını tətbiq et
+            $("#sortable").sortable({
+                update: function (event, ui) {
+                    // Siyahı sırası dəyişdikdə "update" tetiklenir
+                    let sortedIDs = $("#sortable").sortable("toArray", { attribute: "id" });
+
+                    // Sorted IDs (yenilənmiş sıralama) massivini əldə et
+                    // İd-lərin formatını düzəldək (id-lər item-1, item-2 kimi idi)
+                    let cleanedIDs = sortedIDs.map(id => id.split('-')[1]);
+
+                    // Nəticəni ekrana yazdır
+                    $("#sortedOrder").text(cleanedIDs.join(", "));
+                }
+            });
+
+            // Sıralama aktiv edildikdən sonra
+            $("#sortable").disableSelection();
+        });
+    </script>
+
+</body>
+
+</html>
