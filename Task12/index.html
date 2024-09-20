@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Telegram-style Message Input</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="chat-container">
+        <!-- Başlıq -->
+        <div class="chat-header">
+            <img id="profilePic" src="default-img.jpg" alt="Profile">
+            <div class="group-name">
+                <strong>Lala Mammadova</strong><br>
+                <small>son görülmə 20 Eyl saat 16:32</small>
+            </div>
+            <i class="fas fa-phone"></i>
+            <i class="fas fa-video" style="margin-left: 15px;"></i>
+            <input type="file" id="fileInputProfile" accept="image/*" style="display:none;">
+        </div>
+
+        <!-- Mesaj Bölməsi -->
+        <div class="chat-message" id="chat-message">
+            <div class="text">
+                <!-- Mesajlar burada görünecek -->
+            </div>
+        </div>
+
+        <!-- Alt hissə (Input Bölməsi) -->
+        <div class="chat-footer">
+            <i class="far fa-smile" id="emoji-btn"></i>
+            <input type="text" placeholder="Mesaj yazın..." id="message-input">
+            <i class="fas fa-paperclip" id="file-btn"></i>
+            <i id="recordButton" class="fas fa-microphone"></i>
+            <!-- Telegram simvolu ilə düymə -->
+            <button class="telegram-btn" aria-label="Telegram" id="send-btn">
+                <i class="fab fa-telegram-plane"></i>
+            </button>
+            <!-- Emoji Picker -->
+            <div id="emoji-picker" class="emoji-picker">
+                <span>😀</span>
+                <span>😃</span>
+                <span>😄</span>
+                <span>😁</span>
+                <span>😆</span>
+                <span>😅</span>
+                <span>😂</span>
+                <span>🤣</span>
+                <span>😇</span>
+                <span>😉</span>
+                <span>😍</span>
+                <span>😘</span>
+                <span>😗</span>
+                <span>😙</span>
+                <span>😚</span>
+                <span>😋</span>
+                <span>😎</span>
+                <span>😏</span>
+                <span>😒</span>
+                <span>😞</span>
+                <span>😔</span>
+                <span>😟</span>
+                <span>😕</span>
+                <span>🙁</span>
+                <span>☹️</span>
+                <span>😖</span>
+                <span>😣</span>
+                <span>😫</span>
+                <span>😩</span>
+                <span>😤</span>
+                <span>😠</span>
+                <span>😡</span>
+                <span>🤬</span>
+                <span>😈</span>
+                <span>👿</span>
+                <span>👹</span>
+                <span>👺</span>
+                <span>💩</span>
+                <span>🤡</span>
+                <span>👻</span>
+                <span>🎃</span>
+                <span>👽</span>
+                <span>🤖</span>
+                <span>😺</span>
+                <span>😸</span>
+                <span>😻</span>
+                <span>😼</span>
+                <span>😽</span>
+                <span>🙀</span>
+                <span>😿</span>
+                <span>😾</span>
+                <span>💔</span>
+                <span>❤️</span>
+                <span>🧡</span>
+                <span>💛</span>
+                <span>💚</span>
+                <span>💙</span>
+                <span>💜</span>
+                <span>🖤</span>
+                <span>🤍</span>
+                <span>🤎</span>
+                <span>🌍</span>
+                <span>🌎</span>
+                <span>🌏</span>
+                <span>🌐</span>
+                <span>🌟</span>
+                <span>🌈</span>
+                <span>🌙</span>
+                <span>☀️</span>
+                <span>🌧️</span>
+                <span>🌩️</span>
+                <span>❄️</span>
+                <span>🌊</span>
+                <span>🌹</span>
+                <span>🌻</span>
+                <span>🌼</span>
+
+
+            </div>
+
+            <!-- Fayl Picker (Sənəd və Şəkil) -->
+            <div id="file-picker" class="file-picker">
+                <p>Fayl növünü seçin:</p>
+                <button id="document-btn">Sənəd</button>
+                <button id="image-btn">Şəkil</button>
+            </div>
+
+            <!-- Fayl Seçmə -->
+            <input type="file" id="file-input" style="display: none;">
+        </div>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>
