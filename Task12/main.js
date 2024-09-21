@@ -13,6 +13,60 @@ const imageBtn = document.getElementById('image-btn');
 const fileInput = document.getElementById('file-input');
 const fileInputProfile = document.getElementById('fileInputProfile');
 
+const recordButton = document.getElementById('recordButton');
+let mediaRecorder;
+let audioChunks = [];
+
+recordButton.addEventListener('click', () => {
+    navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(stream => {
+            if (!mediaRecorder || mediaRecorder.state === 'inactive') {
+                // Ses kaydını başlat
+                mediaRecorder = new MediaRecorder(stream);
+                mediaRecorder.start();
+                recordButton.classList.add('recording'); // Görsel olarak butonu değiştirir (örneğin kırmızıya dönebilir)
+                
+                // Ses verilerini toplar
+                mediaRecorder.addEventListener('dataavailable', event => {
+                    audioChunks.push(event.data);
+                });
+
+                // Kaydetme işlemi durdurulduğunda:
+                mediaRecorder.addEventListener('stop', () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/mpeg-3' });
+                    const audioUrl = URL.createObjectURL(audioBlob);
+                    const audio = new Audio(audioUrl);
+                    audio.controls = true; // Ses kontrolleri
+
+                    // Yeni mesaj divi oluştur
+                    const newMessage = document.createElement('div');
+                    newMessage.classList.add('voice-message');
+                    newMessage.appendChild(audio);
+
+                    // Mesajı chat ekranına ekle
+                    const chatMessage = document.getElementById('chat-message');
+                    chatMessage.appendChild(newMessage);
+
+                    // Sonraki kayıt için temizle
+                    audioChunks = [];
+                    recordButton.classList.remove('recording');
+                });
+
+                // 5 saniye sonra kaydı otomatik durdur (ihtiyaca göre ayarlanabilir)
+                setTimeout(() => {
+                    mediaRecorder.stop();
+                }, 5000);
+            } else if (mediaRecorder.state === 'recording') {
+                // Kaydı durdur
+                mediaRecorder.stop();
+                recordButton.classList.remove('recording');
+            }
+        })
+        .catch(error => {
+            console.error('Mikrofon izni alınamadı:', error);
+        });
+});
+
 
 profilePic.addEventListener('click', () => {
     fileInputProfile.click()
@@ -40,7 +94,6 @@ fileInputProfile.addEventListener('change', (event) => {
     }
 });
 
-
 // Emoji seçimi üçün funksionallıq
 emojiBtn.addEventListener('click', () => {
     toggleVisibility(emojiPicker);
@@ -50,7 +103,29 @@ emojiBtn.addEventListener('click', () => {
 emojiPicker.addEventListener('click', (e) => {
     if (e.target.tagName === 'SPAN') {
         messageInput.value += e.target.textContent;
-        emojiPicker.style.display = 'none';
+        // emojiPicker.style.display = 'none'; // Bu satırı kaldırın veya yorum yapın
+    }
+});
+
+// Mesaj göndərmə funksionallığı
+sendBtn.addEventListener('click', () => {
+    const messageText = messageInput.value.trim();
+    if (messageText) {
+        const newMessage = document.createElement('div');
+        newMessage.classList.add('text');
+        newMessage.textContent = messageText;
+        newMessage.style.backgroundColor = '#0f96da'; // Mətn daxil edildikdə arxa fon
+        newMessage.style.color = '#fff'; // Mətn rəngi
+        newMessage.style.padding = '5px'; // Yastıq qoyma
+        chatMessage.appendChild(newMessage);
+        messageInput.value = ''; // Inputu təmizlə
+        messageInput.focus(); // Inputa fokuslan
+
+        // Emoji penceresini kapat
+        emojiPicker.style.display = 'none'; // Mesaj gönderildiğinde emoji penceresini kapat
+
+        // Scroll'u en alta kaydır
+        chatMessage.scrollTop = chatMessage.scrollHeight;
     }
 });
 
@@ -78,7 +153,6 @@ fileBtn.addEventListener('click', (event) => {
 });
 
 
-
 // Fayl növü seçildikdə fayl seçim pəncərəsi açılır
 documentBtn.addEventListener('click', () => {
     fileInput.accept = ".pdf,.doc,.docx,.txt"; // Sənəd növləri
@@ -98,6 +172,7 @@ fileInput.addEventListener('change', (e) => {
         const fileName = file.name;
 
         const newMessage = document.createElement('div');
+        newMessage.classList.add('file-message');
 
         // Şəkil və ya sənəd olduğunu yoxla
         if (fileType.startsWith('image/')) {
@@ -112,6 +187,7 @@ fileInput.addEventListener('change', (e) => {
         }
 
         chatMessage.appendChild(newMessage);
+        chatMessage.scrollTop = chatMessage.scrollHeight;
     }
 });
 
@@ -128,6 +204,7 @@ sendBtn.addEventListener('click', () => {
         chatMessage.appendChild(newMessage);
         messageInput.value = ''; // Inputu təmizlə
         messageInput.focus(); // Inputa fokuslan
+        chatMessage.scrollTop = chatMessage.scrollHeight;
 
     }
 });

@@ -148,3 +148,14 @@ body {
     }
   }
   
+  .file-message {
+    text-align: right; /* Sağ hizalama */
+    display: flex;
+    justify-content: flex-end; /* Mesajı sağa yasla */
+    margin-bottom: 10px; /* Mesajlar arasındaki boşluk */
+}
+
+.file-message img {
+    max-width: 100px;
+    border-radius: 10px;
+}
