@@ -169,36 +169,6 @@ body {
   border-radius: 10px;
 }
 
-/* Webkit tarayıcıları (Chrome, Safari) için scrollbar */
-::-webkit-scrollbar {
-  width: 7px;
-  /* Scrollbar genişliği */
-}
-
-/* Scrollbar arka planı */
-::-webkit-scrollbar-track {
-  background: #333;
-  /* Arka plan rengi */
-  border-radius: 10px;
-  /* Yuvarlak köşeler */
-}
-
-/* Scrollbar'ın kendisi */
-::-webkit-scrollbar-thumb {
-  background-color: #0077b5;
-  /* Scrollbar rengi */
-  border-radius: 10px;
-  /* Scrollbar yuvarlak köşeleri */
-  border: 1px solid #0077b5;
-  /* İç kısımdaki boşluk */
-}
-
-/* Scrollbar üzerine gelindiğinde */
-::-webkit-scrollbar-thumb:hover {
-  background-color: #0088cc;
-  /* Hover durumu için koyulaştırılmış renk */
-}
-
 .voice-message {
   text-align: right;
   display: flex;
@@ -209,7 +179,157 @@ body {
 .voice-message audio {
   max-width: 210px;
   margin-left: 10px;
-  
+
+}
+
+
+/* Webkit tarayıcıları (Chrome, Safari) için scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Scrollbar arka planı */
+::-webkit-scrollbar-track {
+  background: #333;
+  border-radius: 10px;
+}
+
+/* Scrollbar'ın kendisi */
+::-webkit-scrollbar-thumb {
+  background-color: #0077b5;
+  border-radius: 10px;
+  border: 1px solid #0077b5;
+}
+
+/* Scrollbar üzerine gelindiğinde */
+::-webkit-scrollbar-thumb:hover {
+  background-color: #0088cc;
+}
+
+
+/* Responsivlik */
+/* Mobil görünüm için (max-width: 767px) */
+@media only screen and (max-width: 767px) {
+  .chat-container {
+    width: 90%;
+    /* Daha geniş ekran kaplaması */
+    padding: 10px;
+    border-radius: 20px;
+    /* Daha küçük border-radius */
+  }
+
+  .chat-container .chat-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .chat-container .chat-header img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .chat-container .chat-header .group-name {
+    margin-left: 0;
+    font-size: 14px;
+    /* Daha küçük yazı boyutu */
+  }
+
+  .chat-container .chat-header i {
+    font-size: 17px;
+    /* Simgelerin boyutunu küçült */
+  }
+
+  .chat-container .chat-message {
+    height: 250px;
+    /* Mesaj alanının yüksekliğini küçült */
+    padding: 10px;
+  }
+
+  .chat-container .chat-footer {
+    width: 100%;
+    padding: 5px;
+    border-radius: 20px;
+  }
+
+  .chat-container .chat-footer input {
+    padding: 5px;
+    /* Daha küçük input alanı */
+    font-size: 14px;
+  }
+
+  .chat-container .chat-footer i {
+    font-size: 18px;
+    /* Simgeleri küçült */
+  }
+
+  .chat-container .telegram-btn {
+    padding: 10px;
+  }
+
+  .chat-container .telegram-btn i {
+    font-size: 24px;
+  }
+
+  .chat-container .emoji-picker,
+  .chat-container .file-picker {
+    bottom: 60px;
+    left: 10px;
+  }
+
+  .file-message img,
+  .voice-message audio {
+    max-width: 80px;
+    /* Görüntü ve ses mesajlarını küçült */
+  }
+
+  .chat-container .telegram-btn {
+    padding: 10px;
+    border-radius: 50%;
+  }
+
+  .chat-container .telegram-btn i {
+    font-size: 20px;
+  }
+
+  .chat-container .emoji-picker span {
+    font-size: 20px;
+    /* Emojileri küçült */
+  }
+}
+
+/* Daha büyük mobil cihazlar ve tabletler için (768px - 1024px) */
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+  .chat-container {
+    width: 50%;
+    /* Tabletlerde ekranı daha iyi kullan */
+  }
+
+  .chat-container .chat-header img {
+    width: 35px;
+    height: 35px;
+  }
+
+  .chat-container .chat-header .group-name {
+    font-size: 16px;
+  }
+  .chat-container .chat-footer {
+    width: 400px;
+  }
+  .chat-container .chat-footer input {
+    font-size: 16px;
+  }
+
+  .chat-container .chat-footer i {
+    font-size: 20px;
+  }
+
+  .chat-container .telegram-btn {
+    padding: 12px;
+  }
+
+  .chat-container .telegram-btn i {
+    font-size: 26px;
+  }
 }
 
 
