@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vulqar Sözləri Maskala</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        textarea {
+            width: 98%;
+            height: 100px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            resize: none;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #e9ecef;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .masked-word {
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h2>Vulqar Sözləri Maskala</h2>
+        <textarea id="inputText" placeholder="Metni buraya daxil edin..."></textarea>
+        <button onclick="maskText()">Maskala</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <script>
+        // Vulqar sözlər siyahısı (əksər şəkilçilərlə istifadə edilə bilər)
+        const vulqarWords = ['alma', 'armud', 'heyva'];
+
+        // Vulqar sözləri maskalayır (şəkilçilərlə birlikdə)
+        function maskText() {
+            const inputText = document.getElementById('inputText').value;
+            const resultDiv = document.getElementById('result');
+            let maskedText = inputText;
+
+            // Hər bir vulqar söz üçün loop
+            vulqarWords.forEach(word => {
+                // Vulqar sözə qoşula bilən hər hansı şəkilçini də tanı (əgər şəkilçi varsa)
+                const regex = new RegExp(`\\b(${word})(\\w*)\\b`, 'gi'); // \w* şəkilçiləri təmsil edir
+                maskedText = maskedText.replace(regex, (matchedWord, baseWord, suffix) => {
+                    // Əgər sözün əsas hissəsi (məsələn, "alma") 2 hərfdən çoxdursa
+                    if (baseWord.length > 2) {
+                        const firstChar = baseWord[0]; // İlk hərf
+                        const lastChar = baseWord[baseWord.length - 1]; // Son hərf
+                        const stars = '*'.repeat(baseWord.length - 2); // Ulduzlar
+                        return `<span class="masked-word">${firstChar + stars + lastChar}${suffix}</span>`; // Şəkilçi olduğu kimi qalır
+                    }
+                    return matchedWord; // Əks halda olduğu kimi qaytar
+                });
+            });
+
+            resultDiv.innerHTML = maskedText; // Maskalanmış mətni göstər
+        }
+    </script>
+
+</body>
+
+</html>
