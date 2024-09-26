@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5 Suallıq Quiz</title>
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.3/dist/paper.min.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 20px;
+        }
+
+        .quiz-container {
+            max-width: 600px;
+            margin: 0 auto;
+            border-radius: 5px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px #aaa;
+        }
+
+        .question h3 {
+            margin-bottom: 10px;
+        }
+
+        .answers label {
+            display: block;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .answers label:hover {
+            background-color: #f0f0f0;
+        }
+
+        .selected-option {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .correct {
+            background-color: #28a745 !important;
+            color: white;
+        }
+
+        .wrong {
+            background-color: #dc3545 !important;
+            color: white;
+        }
+
+        /* Seçimlər deaktiv olduqda stil */
+        .disabled {
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* Variantların stili (A, B, C) */
+        .option {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            text-align: center;
+            line-height: 25px;
+            border: 2px solid #3498db;
+            border-radius: 50%;
+            color: #3498db;
+            font-weight: bold;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .selected-option {
+            background-color: #3498db;
+            color: white;
+        }
+
+        button {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="quiz-container paper">
+        <h2 class="text-center">Quiz</h2>
+
+        <div class="question">
+            <h3>1. HTML nədir?</h3>
+            <div class="answers">
+                <span class="option" data-question="q1" data-answer="a">A</span> Proqramlaşdırma dili<br>
+                <span class="option" data-question="q1" data-answer="b">B</span> Əməliyyat sistemi<br>
+                <span class="option" data-question="q1" data-answer="c">C</span> İşarətləmə dili
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>2. CSS nə üçün istifadə olunur?</h3>
+            <div class="answers">
+                <span class="option" data-question="q2" data-answer="a">A</span> Veb səhifənin dizaynı<br>
+                <span class="option" data-question="q2" data-answer="b">B</span> Verilənlər bazası idarəetməsi<br>
+                <span class="option" data-question="q2" data-answer="c">C</span> Qrafik işlənməsi
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>3. JavaScript harada istifadə olunur?</h3>
+            <div class="answers">
+                <span class="option" data-question="q3" data-answer="a">A</span> Veb inkişafı<br>
+                <span class="option" data-question="q3" data-answer="b">B</span> Sistem proqramlaşdırması<br>
+                <span class="option" data-question="q3" data-answer="c">C</span> Mobil tətbiq inkişafı
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>4. Başlıq üçün hansı etiket istifadə olunur?</h3>
+            <div class="answers">
+                <span class="option" data-question="q4" data-answer="a">A</span> &lt;p&gt;<br>
+                <span class="option" data-question="q4" data-answer="b">B</span> &lt;h1&gt;<br>
+                <span class="option" data-question="q4" data-answer="c">C</span> &lt;div&gt;
+            </div>
+        </div>
+
+        <div class="question">
+            <h3>5. Veb səhifələrinin nümayişi üçün hansı dil istifadə olunur?</h3>
+            <div class="answers">
+                <span class="option" data-question="q5" data-answer="a">A</span> Python<br>
+                <span class="option" data-question="q5" data-answer="b">B</span> C++<br>
+                <span class="option" data-question="q5" data-answer="c">C</span> HTML
+            </div>
+        </div>
+
+        <button id="submit-btn" class="btn-primary btn-block">Nəticəni Göstər</button>
+
+        <div id="result" class="text-center"></div>
+    </div>
+
+    <script>
+        const selectedAnswers = {};
+
+        // Seçimlərin üzərinə klikləmə funksiyası
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function () {
+                const question = this.getAttribute('data-question');
+                const answer = this.getAttribute('data-answer');
+
+                // Seçilmiş variantları yadda saxlayırıq
+                selectedAnswers[question] = answer;
+
+                // Eyni sual üçün əvvəlki seçimi təmizləyirik
+                document.querySelectorAll(`[data-question="${question}"]`).forEach(opt => {
+                    opt.classList.remove('selected-option');
+                });
+
+                // Seçilmiş variantı işarələyirik
+                this.classList.add('selected-option');
+            });
+        });
+
+        document.getElementById("submit-btn").addEventListener("click", function () {
+            let score = 0;
+
+            // Doğru cavablar
+            const correctAnswers = {
+                q1: 'c',
+                q2: 'a',
+                q3: 'a',
+                q4: 'b',
+                q5: 'c'
+            };
+
+            // Hər bir sualı yoxlamaq və nəticəni göstərmək
+            for (let question in correctAnswers) {
+                const correctAnswer = correctAnswers[question];
+                const userAnswer = selectedAnswers[question];
+
+                const options = document.querySelectorAll(`[data-question="${question}"]`);
+                options.forEach(option => {
+                    option.classList.remove('correct', 'wrong');
+                    if (option.getAttribute('data-answer') === correctAnswer) {
+                        option.classList.add('correct'); // Düzgün cavablar yaşıl olur
+                    }
+                    if (option.getAttribute('data-answer') === userAnswer && userAnswer !== correctAnswer) {
+                        option.classList.add('wrong'); // Səhv cavablar qırmızı olur
+                    }
+                });
+
+                // Düzgün cavabları hesablayırıq
+                if (userAnswer === correctAnswer) {
+                    score++;
+                }
+
+                // Hər bir sual üçün seçimləri deaktiv edirik (kilidləyirik)
+                document.querySelectorAll(`[data-question="${question}"]`).forEach(opt => {
+                    opt.classList.add('disabled');
+                });
+            }
+
+            // Sonucu göstər
+            document.getElementById("result").innerHTML = `Sizin nəticəniz: ${score} / 5`;
+
+            // Nəticə göstərildikdən sonra düyməni deaktiv edirik
+            document.getElementById("submit-btn").disabled = true;
+        });
+    </script>
+
+</body>
+
+</html>
