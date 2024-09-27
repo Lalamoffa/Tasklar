@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cədvəl - Modal Edit (Ad və Soyad ayrı, Sidebar ilə)</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #acabab;
+            color: white;
+            padding: 15px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 100%;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar.hidden {
+            transform: translateX(-100%);
+        }
+
+        .sidebar h2 {
+            text-align: center;
+            font-size: 22px;
+            margin-bottom: 20px;
+        }
+
+        .content {
+            margin-left: 200px;
+            padding: 20px;
+            flex-grow: 1;
+            transition: margin-left 0.3s ease;
+        }
+
+        .content.expanded {
+            margin-left: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        th {
+            background-color: lightgray;
+        }
+
+        /* Kontekst menyusu stili */
+        .context-menu {
+            display: none;
+            position: absolute;
+            z-index: 1000;
+            background: white;
+            border: 1px solid #ccc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        .context-menu-item {
+            padding: 8px 12px;
+            cursor: pointer;
+        }
+
+        .context-menu-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 40%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .modal-label {
+            padding: 10px;
+            font-size: 20px;
+            font-weight: 400;
+
+        }
+
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            box-sizing: border-box;
+        }
+
+        .modal button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        .modal button:hover {
+            opacity: 0.9;
+        }
+
+        .selected {
+            background-color: rgba(0, 123, 255, 0.1);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="sidebar hidden">
+        <h2>Sidebar</h2>
+        <ul>
+            <li><a href="#">Ana Səhifə</a></li>
+            <li><a href="#">İstifadəçilər</a></li>
+            <li><a href="#">Nizamlamalar</a></li>
+            <li><a href="#">Çıxış</a></li>
+        </ul>
+    </div>
+
+    <div class="content expanded">
+        <table>
+            <thead>
+                <tr>
+                    <th>№</th>
+                    <th>Ad</th>
+                    <th>Soyad</th>
+                </tr>
+            </thead>
+            <tbody id="sortable">
+                <tr data-id="1">
+                    <td>1</td>
+                    <td>Ali</td>
+                    <td>Vəliyev</td>
+                </tr>
+                <tr data-id="2">
+                    <td>2</td>
+                    <td>Elşən</td>
+                    <td>Quliyev</td>
+                </tr>
+                <!-- Daha çox istifadəçi -->
+            </tbody>
+        </table>
+
+        <!-- Kontekst menyusu -->
+        <div class="context-menu" id="contextMenu">
+            <div class="context-menu-item" id="editUser">Düzəlt</div>
+            <div class="context-menu-item" id="deleteUser">Sil</div>
+            <div class="context-menu-item" id="addUser">Əlavə et</div>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>İstifadəçi Məlumatları</h2>
+                <div class="modal-label">
+                    <label>Ad</label>
+                    <input type="text" id="nameInput" placeholder="Ad" required>
+                    <label>Soyad</label>
+                    <input type="text" id="surnameInput" placeholder="Soyad" required>
+                    <button id="saveBtn">Saxla</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $(document).ready(function () {
+            const modal = $('#myModal');
+            const nameInput = $('#nameInput');
+            const surnameInput = $('#surnameInput');
+            let currentRow = null; // Varsayılan olaraq seçilmiş satır yoxdur
+            let contextMenu = $('#contextMenu');
+
+            // Cədvəli sortable etmək
+            $("#sortable").sortable({
+                items: "tr",
+                cursor: "move",
+                start: function (event, ui) {
+                    $(this).find("tr").removeClass("selected");
+                    ui.item.addClass("selected");
+                },
+                stop: function (event, ui) {
+                    $(this).find("tr").removeClass("selected");
+                }
+            });
+
+            // Kontekst menyusunu aç
+            $('#sortable').on('contextmenu', 'tr', function (e) {
+                e.preventDefault(); // Default kontekst menyusunu bağla
+                currentRow = $(this); // Seçilmiş satırı qeyd et
+                contextMenu.css({
+                    display: 'block',
+                    left: e.pageX,
+                    top: e.pageY
+                });
+            });
+
+            // Kontekst menyusunu bağla
+            $(document).click(function () {
+                contextMenu.hide();
+            });
+
+            // Düzəlt düyməsi
+            $('#editUser').click(function () {
+                const name = currentRow.find('td:nth-child(2)').text();
+                const surname = currentRow.find('td:nth-child(3)').text();
+                nameInput.val(name);
+                surnameInput.val(surname);
+                modal.show();
+                contextMenu.hide();
+            });
+
+
+            // Sil düyməsi
+            $('#deleteUser').click(function () {
+                Swal.fire({
+                    title: 'Silmək istəyirsiniz?',
+                    text: "Bu əməliyyatdan sonra geri dönmək mümkün olmayacaq!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Bəli, sil!',
+                    cancelButtonText: 'İmtina et'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        currentRow.remove();
+                        Swal.fire('Silindi!', 'İstifadəçi silindi.', 'success');
+                        updateRowNumbers(); // Satır nömrələrini yenilə
+                    }
+                });
+                contextMenu.hide();
+            });
+
+            // Əlavə et düyməsi
+            $('#addUser').click(function () {
+                currentRow = null; // Əlavə edərkən seçilmiş satırı sıfırla
+                nameInput.val(''); // Ad sahəsini boş qoy
+                surnameInput.val(''); // Soyad sahəsini boş qoy
+                modal.show();
+                contextMenu.hide();
+            });
+
+            // Saxla düyməsi
+            $('#saveBtn').click(function () {
+                if (currentRow) { // Redaktə edilirsə
+                    const updatedName = nameInput.val();
+                    const updatedSurname = surnameInput.val();
+                    currentRow.find('td:nth-child(2)').text(updatedName);
+                    currentRow.find('td:nth-child(3)').text(updatedSurname);
+                } else { // Yeni istifadəçi əlavə edilirsə
+                    const newRow = `<tr>
+                        <td></td>
+                        <td>${nameInput.val()}</td>
+                        <td>${surnameInput.val()}</td>
+                    </tr>`;
+                    $('#sortable').append(newRow);
+                }
+                modal.hide();
+                contextMenu.hide();
+                updateRowNumbers();
+            });
+
+            // Satır nömrələrini yeniləmək üçün funksiya
+            function updateRowNumbers() {
+                $('#sortable tr').each(function (index) {
+                    $(this).find('td:first').text(index + 1);
+                });
+            }
+
+            // Modalı bağlamaq
+            $('.close').click(function () {
+                modal.hide();
+                contextMenu.hide();
+            });
+
+            // Klaviaturada "Esc" düyməsini basanda modalı bağlamaq
+            $(document).keydown(function (e) {
+                if (e.key === "Escape") {
+                    modal.hide();
+                    contextMenu.hide();
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
