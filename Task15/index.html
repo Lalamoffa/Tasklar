@@ -7,6 +7,9 @@
     <title>Cədvəl - Modal Edit (Ad və Soyad ayrı, Sidebar ilə)</title>
     <!-- Font Awesome CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- jQuery UI CSS -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- SweetAlert2 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
 
     <style>
@@ -184,6 +187,11 @@
         .modal button:hover {
             opacity: 0.9;
         }
+
+        .selected {
+            background-color: rgba(0, 123, 255, 0.1);
+            /* Seçilən sətirin fonu */
+        }
     </style>
 </head>
 
@@ -211,7 +219,7 @@
                     <th>Əməliyyatlar</th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody id="sortable">
                 <!-- 10 istifadəçi -->
                 <tr data-id="1">
                     <td>1</td>
@@ -361,92 +369,105 @@
         </table>
     </div>
 
+
+    <!-- jQuery və jQuery UI JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
     <!-- SweetAlert2 JS -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const editButtons = document.querySelectorAll('.edit-btn');
-            const deleteButtons = document.querySelectorAll('.delete-btn');
-            const modal = document.getElementById('myModal');
-            const closeModal = document.querySelector('.close');
-            const saveBtn = document.getElementById('saveBtn');
-            const nameInput = document.getElementById('nameInput');
-            const surnameInput = document.getElementById('surnameInput');
-            const sidebar = document.querySelector('.sidebar');
-            const content = document.querySelector('.content');
-
+        $(document).ready(function () {
+            const modal = $('#myModal');
+            const nameInput = $('#nameInput');
+            const surnameInput = $('#surnameInput');
             let currentRow;
 
-            // Edit düyməsinə basıldıqda modal açılır
-            editButtons.forEach(button => {
-                button.addEventListener('click', (event) => {
-                    currentRow = event.target.closest('tr'); // Sətiri tapırıq
-                    const name = currentRow.cells[1].innerText; // Mövcud adı götür
-                    const surname = currentRow.cells[2].innerText; // Mövcud soyadı götür
-                    nameInput.value = name; // İnputa mövcud adı yerləşdir
-                    surnameInput.value = surname; // Soyad üçün inputa yerləşdir
+            // Cədvəli sortable etmək
+            $("#sortable").sortable({
+                items: "tr", // Sıralama üçün icazə verilən elementlər
+                cursor: "move", // Sürüklenme imleci
+                start: function (event, ui) {
+                    // Seçdiyiniz sətiri aktiv etmək
+                    $(this).find("tr").removeClass("selected"); // Əvvəlki seçimləri sıfırlayın
+                    ui.item.addClass("selected"); // Yalnız seçilən sətirə "selected" sinfini əlavə edin
+                },
+                stop: function (event, ui) {
+                    // Sıralama tamamlandıqda
+                    $(this).find("tr").removeClass("selected"); // Seçimi sıfırlayın
+                },
+                update: function (event, ui) {
+                    // Sıralama dəyişdikdə burada əlavə əməliyyatlar edə bilərsiniz
+                },
+                cancel: ".not-sortable" // Sıralamaya icazə verilməyən elementlər
+            });
 
-                    modal.style.display = 'block'; // Modalı göstər
-                });
+
+
+            // Edit düyməsinə basıldıqda modal açılır
+            $('.edit-btn').on('click', function (event) {
+                currentRow = $(this).closest('tr'); // Sətiri tapırıq
+                const name = currentRow.find('td:nth-child(2)').text(); // Mövcud adı götür
+                const surname = currentRow.find('td:nth-child(3)').text(); // Mövcud soyadı götür
+                nameInput.val(name); // İnputa mövcud adı yerləşdir
+                surnameInput.val(surname); // Soyad üçün inputa yerləşdir
+
+                modal.show(); // Modalı göstər
             });
 
             // Save düyməsinə basıldıqda məlumatları saxlayır və yeniləyir
-            saveBtn.addEventListener('click', () => {
-                const updatedName = nameInput.value; // İnputdakı yeni ad
-                const updatedSurname = surnameInput.value; // İnputdakı yeni soyad
-                currentRow.cells[1].innerText = updatedName; // Sətirdəki adı yenilə
-                currentRow.cells[2].innerText = updatedSurname; // Sətirdəki soyadı yenilə
+            $('#saveBtn').on('click', function () {
+                const updatedName = nameInput.val(); // İnputdakı yeni ad
+                const updatedSurname = surnameInput.val(); // İnputdakı yeni soyad
+                currentRow.find('td:nth-child(2)').text(updatedName); // Sətirdəki adı yenilə
+                currentRow.find('td:nth-child(3)').text(updatedSurname); // Sətirdəki soyadı yenilə
 
-                modal.style.display = 'none'; // Modalı bağla
+                modal.hide(); // Modalı bağla
             });
 
             // Modalı bağlamaq üçün `x` işarəsi
-            closeModal.addEventListener('click', () => {
-                modal.style.display = 'none';
+            $('.close').on('click', function () {
+                modal.hide();
             });
 
             // Modalı bağlamaq üçün pəncərənin xaricinə klik etmək
-            window.addEventListener('click', (event) => {
-                if (event.target == modal) {
-                    modal.style.display = 'none';
+            $(window).on('click', function (event) {
+                if (event.target == modal[0]) {
+                    modal.hide();
                 }
             });
 
-
             // Delete düyməsinə basıldıqda SweetAlert ilə təsdiq
-            deleteButtons.forEach(button => {
-                button.addEventListener('click', (event) => {
-                    const row = event.target.closest('tr');
+            $('.delete-btn').on('click', function (event) {
+                const row = $(this).closest('tr');
 
-                    // SweetAlert ilə təsdiq pəncərəsi
-                    Swal.fire({
-                        title: 'Silmək istəyirsiniz?',
-                        text: "Bu əməliyyatdan sonra geri dönmək mümkün olmayacaq!",
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
-                        confirmButtonText: 'Bəli, sil!',
-                        cancelButtonText: 'İmtina et'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            row.remove(); // Sətiri silir
-                            Swal.fire(
-                                'Silindi!',
-                                'İstifadəçi silindi.',
-                                'success'
-                            );
-                        }
-                    });
+                // SweetAlert ilə təsdiq pəncərəsi
+                Swal.fire({
+                    title: 'Silmək istəyirsiniz?',
+                    text: "Bu əməliyyatdan sonra geri dönmək mümkün olmayacaq!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Bəli, sil!',
+                    cancelButtonText: 'İmtina et'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        row.remove(); // Sətiri silir
+                        Swal.fire(
+                            'Silindi!',
+                            'İstifadəçi silindi.',
+                            'success'
+                        );
+                    }
                 });
             });
 
             // Alt + 1 düyməsinə basıldıqda sidebarı açıb bağlayır
-            window.addEventListener('keydown', (event) => {
+            $(window).on('keydown', function (event) {
                 if (event.altKey && event.key === '1') {
-                    sidebar.classList.toggle('hidden'); // Sidebarı açıb bağlayır
-                    content.classList.toggle('expanded'); // Content sahəsini genişləndirir
+                    $('.sidebar').toggleClass('hidden'); // Sidebarı açıb bağlayır
+                    $('.content').toggleClass('expanded'); // Content sahəsini genişləndirir
                 }
             });
         });
