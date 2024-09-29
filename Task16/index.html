@@ -67,6 +67,22 @@
             display: none;
             /* Başlanğıcda gizlidir */
         }
+
+        /* Şifrəni unutmusunuz formunun görünüşü */
+        .forgot-password-link {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .forgot-password-link a {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .forgot-password-link a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -91,8 +107,11 @@
                     </div>
                 </div>
                 <button type="submit" class="btn-block btn-primary">Daxil Ol</button>
+                <div class="forgot-password-link" style="margin-top: 10px;">
+                    <a href="#" onclick="toggleForgotPassword()">Şifrəni unutmusunuz?</a>
+                </div>
             </form>
-            <div class="toggle-link">
+            <div class="toggle-link" style="margin-top: 40px;">
                 Hesabınız yoxdur? <a onclick="toggleForms()">Qeydiyyatdan keçin</a>
             </div>
         </div>
@@ -132,6 +151,22 @@
                 Hesabınız var? <a onclick="toggleForms()">Daxil olun</a>
             </div>
         </div>
+
+        <!-- Forgot Password Form -->
+        <div id="forgotPasswordForm" class="hidden">
+            <h3 class="header">Şifrəni Unutmusunuz?</h3>
+            <form id="forgotPassword" onsubmit="return submitForgotPassword(event)">
+                <div class="form-group">
+                    <label for="forgotEmail">E-poçt</label>
+                    <input type="email" id="forgotEmail" class="input-block" placeholder="E-poçt ünvanınızı daxil edin"
+                        required>
+                </div>
+                <button type="submit" class="btn-block btn-primary">Göndər</button>
+            </form>
+            <div class="toggle-link">
+                Geri dönmək istəyirsiniz? <a onclick="toggleLogin()">Daxil olun</a>
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -142,22 +177,47 @@
         function toggleForms() {
             document.getElementById('loginForm').classList.toggle('hidden');
             document.getElementById('registerForm').classList.toggle('hidden');
-            // Username error message'i gizlət
-            document.getElementById('usernameError').style.display = 'none';
-            document.getElementById('passwordError').style.display = 'none'; // Şifrə xətası gizlədilir
-            document.getElementById('confirmPasswordError').style.display = 'none'; // Təsdiq şifrə xətası gizlədilir
+            document.getElementById('forgotPasswordForm').classList.add('hidden');
         }
 
+        // Şifrəni unutmusunuz formu açmaq
+        function toggleForgotPassword() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('forgotPasswordForm').classList.remove('hidden');
+        }
 
+        // Şifrəni unutmusunuz formundan geri login formuna keçid
+        function toggleLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('forgotPasswordForm').classList.add('hidden');
+        }
+
+        // İstifadəçi daxil olma və qeydiyyatdan keçmə funksiyalarını olduğu kimi saxlayaq
         let users = [];
 
-        function validatePassword(password) {
-            const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[A-Za-z\d]{8,}$/;
-            return regex.test(password);
-        }
+        function loginUser(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
 
-        function validateUsername(username) {
-            return username.length >= 4 && username.length <= 20;
+            const user = users.find(user => user.username === username && user.password === password);
+
+            if (user) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Uğurla daxil oldunuz!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'İstifadəçi adı və ya şifrə yalnışdır!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
         }
 
         function registerUser(event) {
@@ -166,138 +226,83 @@
             const password = document.getElementById('registerPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
 
-            let hasError = false; // Xətaları qeyd etmək üçün dəyişən
+            let hasError = false;
 
-            // İstifadəçi adı məhdudiyyətini yoxlamaq
-            if (!validateUsername(username)) {
+            if (username.length < 4 || username.length > 20) {
                 document.getElementById('usernameError').style.display = 'block';
                 hasError = true;
             } else {
-                document.getElementById('usernameError').style.display = 'none'; // Hata mesajını gizlət
+                document.getElementById('usernameError').style.display = 'none';
             }
 
-            // Şifrə məhdudiyyətini yoxlamaq
             if (!validatePassword(password)) {
                 document.getElementById('passwordError').style.display = 'block';
                 hasError = true;
             } else {
-                document.getElementById('passwordError').style.display = 'none'; // Şifrə xətası gizlədilir
+                document.getElementById('passwordError').style.display = 'none';
             }
 
-            // Şifrənin təsdiqini yoxlamaq
             if (password !== confirmPassword) {
                 document.getElementById('confirmPasswordError').style.display = 'block';
                 hasError = true;
             } else {
-                document.getElementById('confirmPasswordError').style.display = 'none'; // Təsdiq şifrə xətası gizlədilir
+                document.getElementById('confirmPasswordError').style.display = 'none';
             }
 
-            if (hasError) {
-                return false; // Əgər xətalar varsa, formu göndərmə
-            }
-
-            // Eyni istifadəçi adının olub-olmadığını yoxla
-            const existingUser = users.find(user => user.username === username);
-            if (existingUser) {
-                document.getElementById('usernameError').textContent = 'Bu istifadəçi adı artıq mövcuddur!';
-                document.getElementById('usernameError').style.display = 'block';
-                return false;
-            }
-
-            // Eyni parolu istifadə edən olub-olmadığını yoxla
-            const existingPasswordUser = users.find(user => user.password === password);
-            if (existingPasswordUser) {
-                document.getElementById('passwordError').textContent = 'Bu parol artıq başqası tərəfindən istifadə olunur!';
-                document.getElementById('passwordError').style.display = 'block';
-                return false;
-            }
-
-            // Yeni istifadəçini əlavə et
-            users.push({ username, password });
-            Swal.fire({
-                icon: 'success',
-                title: 'Qeydiyyat uğurla tamamlandı!',
-                showConfirmButton: false,
-                timer: 1500
-            });
-
-            // Birbaşa login formuna keç
-            setTimeout(() => {
-                toggleForms(); // Qeydiyyat bitdikdən sonra formu dəyiş
-            }, 1500); // 1.5 saniyəlik gözləmə
-
-            // Formu sıfırla
-            document.getElementById('register').reset();
-            return true; // Formu göndər
-        }
-
-        function loginUser(event) {
-            event.preventDefault();
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
-
-            const user = users.find(user => user.username === username && user.password === password);
-            if (user) {
+            if (!hasError) {
+                users.push({ username: username, password: password });
                 Swal.fire({
                     icon: 'success',
-                    title: ' Uğurla Daxil oldunuz!',
+                    title: 'Qeydiyyat uğurla tamamlandı!',
                     showConfirmButton: false,
                     timer: 1500
                 });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Daxil olma xətası!',
-                    text: 'İstifadəçi adı və ya şifrə yanlışdır!',
-                    confirmButtonText: 'Tamam'
-                });
+                toggleForms();
             }
         }
 
-        // Şifrəni göstərmək və gizlətmək funksiyası (Login formu üçün)
-        const eyeIcon = document.getElementById('eyeIcon');
-        eyeIcon.addEventListener('click', function () {
-            const passwordInput = document.getElementById('loginPassword');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
+        // Şifrəni unutmusunuz formunu göndərmək
+        function submitForgotPassword(event) {
+            event.preventDefault();
+            const email = document.getElementById('forgotEmail').value;
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Şifrə sıfırlama linki e-poçtunuza göndərildi!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            toggleLogin(); // Geri login formuna keç
+        }
+
+        // Şifrəni göstərmək və gizlətmək
+        function togglePasswordVisibility(inputId, eyeIconId) {
+            const input = document.getElementById(inputId);
+            const eyeIcon = document.getElementById(eyeIconId);
+
+            if (input.type === 'password') {
+                input.type = 'text';
                 eyeIcon.classList.remove('fa-eye-slash');
                 eyeIcon.classList.add('fa-eye');
             } else {
-                passwordInput.type = 'password';
+                input.type = 'password';
                 eyeIcon.classList.remove('fa-eye');
                 eyeIcon.classList.add('fa-eye-slash');
             }
+        }
+
+        document.getElementById('eyeIcon').addEventListener('click', function () {
+            togglePasswordVisibility('loginPassword', 'eyeIcon');
         });
 
-        // Şifrəni göstərmək və gizlətmək funksiyası (Registrasiya formu üçün)
-        const eyeIconReg = document.getElementById('eyeIconReg');
-        eyeIconReg.addEventListener('click', function () {
-            const passwordInput = document.getElementById('registerPassword');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIconReg.classList.remove('fa-eye-slash');
-                eyeIconReg.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                eyeIconReg.classList.remove('fa-eye');
-                eyeIconReg.classList.add('fa-eye-slash');
-            }
+        document.getElementById('eyeIconReg').addEventListener('click', function () {
+            togglePasswordVisibility('registerPassword', 'eyeIconReg');
         });
 
-        // Şifrəni göstərmək və gizlətmək funksiyası (Təkrar şifrə üçün)
-        const eyeIconConfirm = document.getElementById('eyeIconConfirm');
-        eyeIconConfirm.addEventListener('click', function () {
-            const passwordInput = document.getElementById('confirmPassword');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                eyeIconConfirm.classList.remove('fa-eye-slash');
-                eyeIconConfirm.classList.add('fa-eye');
-            } else {
-                passwordInput.type = 'password';
-                eyeIconConfirm.classList.remove('fa-eye');
-                eyeIconConfirm.classList.add('fa-eye-slash');
-            }
+        document.getElementById('eyeIconConfirm').addEventListener('click', function () {
+            togglePasswordVisibility('confirmPassword', 'eyeIconConfirm');
         });
+
     </script>
 
 </body>
