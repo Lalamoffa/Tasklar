@@ -145,99 +145,57 @@
             margin: 20px auto;
             padding: 20px;
         }
-
-        h1 {
-            text-align: center;
-            color: #1976d2;
-            margin-bottom: 40px;
+        
+        .courses {
+            display: grid;
+            grid-template-columns: repeat(3, 2fr 2fr 2fr);
+            gap: 10px;
+            margin-top: 20px;
         }
 
-        .class-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .class-card {
-            width: calc(25% - 20px);
+        .course-card {
+            display: inline-block;
+            width: 310px;
+            margin: 10px;
+            padding: 15px;
             background-color: #fff;
             border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.3s ease;
         }
 
-        .class-card:hover {
+        .course-card:hover {
             transform: translateY(-5px);
         }
 
-        .class-cover img {
-            width: 100%;
-            height: 150px;
-            object-fit: cover;
-            cursor: pointer;
-        }
-
-        .class-content {
-            padding: 15px;
-            text-align: center;
-        }
-
-        .class-content h3 {
-            margin: 0;
-            font-size: 1.5em;
-            color: #1565c0;
-            cursor: pointer;
-        }
-
-        .subject-list {
-            display: none;
-            padding: 0;
-            list-style-type: none;
-        }
-
-        .subject {
-            background-color: #f1f1f1;
-            margin: 10px 0;
-            padding: 10px;
-            cursor: pointer;
+        .course-card img {
+            max-width: 100%;
+            height: auto;
             border-radius: 5px;
-            text-align: left;
-            position: relative;
         }
 
-        .subject:hover {
-            background-color: #e0f7fa;
-        }
-
-        .toggle-icon {
-            position: absolute;
-            right: 10px;
-            font-size: 0.8em;
-            transition: transform 0.3s;
-        }
-
-        .topic-list {
-            display: none;
-            padding-left: 20px;
-        }
-
-        .topic {
-            margin: 5px 0;
-        }
-
-        .exam-btn {
+        .course-title {
+            font-size: 1.1em;
+            font-weight: bold;
             margin-top: 10px;
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            display: inline-block;
         }
 
-        .exam-btn:hover {
-            background-color: #388e3c;
+        .course-title:hover {
+            color: #1976d2;
+        }
+
+        .course-meta {
+            color: #555;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .course-price {
+            font-weight: bold;
+            color: #1976d2;
+            margin-top: 10px;
         }
     </style>
 
@@ -313,50 +271,59 @@
 
     </div>
 
+    <h2 style="text-align: center;">Kurslar</h2>
 
-    <div class="container">
-        <h1>Kurslar</h1>
-        <div class="class-grid">
-            <!-- Kart 1 -->
-            <div class="class-card">
-                <div class="class-cover" onclick="location.href='kurs1.html';">
-                    <img src="https://via.placeholder.com/300x150?text=Kurs+1" alt="Kurs 1 cover">
-                </div>
-                <div class="class-content">
-                    <h3 onclick="location.href='kurs1.html';">Kurs 1</h3>
-                </div>
-            </div>
+    <div class="courses">
 
-            <!-- Kart 2 -->
-            <div class="class-card">
-                <div class="class-cover" onclick="location.href='kurs2.html';">
-                    <img src="https://via.placeholder.com/300x150?text=Kurs+2" alt="Kurs 2 cover">
-                </div>
-                <div class="class-content">
-                    <h3 onclick="location.href='kurs2.html';">Kurs 2</h3>
-                </div>
+        <div class="course-card">
+            <div class="class-cover" onclick="location.href='kurs1.html';">
+                <img src="images/img.jpg" alt="HTML, CSS, JavaScript, React Course">
             </div>
-
-            <!-- Kart 3 -->
-            <div class="class-card">
-                <div class="class-cover" onclick="location.href='kurs3.html';">
-                    <img src="https://via.placeholder.com/300x150?text=Kurs+3" alt="Kurs 3 cover">
-                </div>
-                <div class="class-content">
-                    <h3 onclick="location.href='kurs3.html';">Kurs 3</h3>
-                </div>
-            </div>
-
-            <!-- Kart 4 -->
-            <div class="class-card">
-                <div class="class-cover" onclick="location.href='kurs4.html';">
-                    <img src="https://via.placeholder.com/300x150?text=Kurs+4" alt="Kurs 4 cover">
-                </div>
-                <div class="class-content">
-                    <h3 onclick="location.href='kurs4.html';">Kurs 4</h3>
-                </div>
-            </div>
+            <div class="course-title" onclick="location.href='kurs1.html';">HTML, CSS, JavaScript, React - Online
+                Certification Course</div>
+            <div class="course-meta">YouAccel Training, Blue Digital Media</div>
+            <div class="course-meta">4.5 ★ (717)</div>
+            <div class="course-meta">Toplam 16 saat - 200 dərs - Yeni Başlayan</div>
+            <div class="course-price">54,99 $</div>
         </div>
+
+        <div class="course-card">
+            <div class="class-cover" onclick="location.href='kurs2.html';">
+                <img src="images/img.jpg" alt="HTML, CSS, JavaScript, React Course">
+            </div>
+            <div class="course-title" onclick="location.href='kurs2.html';">HTML, CSS, JavaScript, React - Online
+                Certification Course</div>
+            <div class="course-meta">YouAccel Training, Blue Digital Media</div>
+            <div class="course-meta">4.5 ★ (717)</div>
+            <div class="course-meta">Toplam 16 saat - 200 dərs - Yeni Başlayan</div>
+            <div class="course-price">54,99 $</div>
+        </div>
+
+        <div class="course-card">
+            <div class="class-cover" onclick="location.href='kurs3.html';">
+                <img src="images/img.jpg" alt="HTML, CSS, JavaScript, React Course">
+            </div>
+            <div class="course-title" onclick="location.href='kurs3.html';">HTML, CSS, JavaScript, React - Online
+                Certification Course</div>
+            <div class="course-meta">YouAccel Training, Blue Digital Media</div>
+            <div class="course-meta">4.5 ★ (717)</div>
+            <div class="course-meta">Toplam 16 saat - 200 dərs - Yeni Başlayan</div>
+            <div class="course-price">54,99 $</div>
+        </div>
+
+        
+        <div class="course-card">
+            <div class="class-cover" onclick="location.href='kurs3.html';">
+                <img src="images/img.jpg" alt="HTML, CSS, JavaScript, React Course">
+            </div>
+            <div class="course-title" onclick="location.href='kurs3.html';">HTML, CSS, JavaScript, React - Online
+                Certification Course</div>
+            <div class="course-meta">YouAccel Training, Blue Digital Media</div>
+            <div class="course-meta">4.5 ★ (717)</div>
+            <div class="course-meta">Toplam 16 saat - 200 dərs - Yeni Başlayan</div>
+            <div class="course-price">54,99 $</div>
+        </div>
+
     </div>
 
     <script>
