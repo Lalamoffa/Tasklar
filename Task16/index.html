@@ -4,305 +4,402 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login və Registrasiya Sistemi</title>
-    <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.0/dist/paper.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <title>Kurslar</title>
+
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Naviqasiya çubuğu */
+        .navbar {
             display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e6e6e6;
+        }
+
+        /* Loqo */
+        .navbar .logo img {
+            height: 40px;
+            /* Loqonun hündürlüyünü tənzimləyin */
+        }
+
+        /* Axtarış barı */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            position: relative;
+            margin-left: 28%;
+            /* Loqodan bir az aralı */
+        }
+
+        .search-bar input {
+            width: 450px;
+            /* Axtarış inputunun eni */
+            padding: 8px 15px;
+            padding-right: 35px;
+            border: 1px solid #e6e6e6;
+            border-radius: 50px;
+            font-size: 14px;
+        }
+
+        .search-bar .search-icon {
+            position: absolute;
+            right: 10px;
+            font-size: 18px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        /* Sağ tərəf linklər və düymələr */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            /* Sağ tərəfə sıxışdırmaq üçün */
+        }
+
+        .shopping-cart {
+            font-size: 20px;
+            /* İkonun ölçüsü */
+            margin-right: 20px;
+            /* İkonlar arasında boşluq */
+            cursor: pointer;
+        }
+
+        /* Daxil ol düymələri */
+        .auth-buttons .login-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 3px;
+            font-size: 15px;
+            cursor: pointer;
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Dil seçimi iconu */
+        .lang-icon {
+            font-size: 20px;
+            margin-right: 20px;
+            /* İkonlar arasında boşluq */
+            cursor: pointer;
+        }
+
+        /* Modal pəncərə üçün stil */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            background-color: #f4f4f9;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
+        }
+
+        .close-btn {
+            cursor: pointer;
+            color: #333;
+            font-size: 20px;
+        }
+
+        .modal-content ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .modal-content ul li {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .modal-content ul li:hover {
+            background-color: #f1f1f1;
         }
 
         .container {
-            width: 350px;
-            margin: auto;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
         }
 
-        .header {
+        h1 {
             text-align: center;
-            margin-bottom: 20px;
+            color: #1976d2;
+            margin-bottom: 40px;
         }
 
-        .toggle-link {
-            text-align: center;
-            margin-top: 20px;
+        .class-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
-        .toggle-link a {
+        .class-card {
+            width: calc(25% - 20px);
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .class-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .class-cover img {
+            width: 100%;
+            height: 150px;
+            object-fit: cover;
             cursor: pointer;
         }
 
-        .hidden {
+        .class-content {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .class-content h3 {
+            margin: 0;
+            font-size: 1.5em;
+            color: #1565c0;
+            cursor: pointer;
+        }
+
+        .subject-list {
             display: none;
+            padding: 0;
+            list-style-type: none;
         }
 
-        .password-container {
+        .subject {
+            background-color: #f1f1f1;
+            margin: 10px 0;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: left;
             position: relative;
-            width: 100%;
         }
 
-        .password-container input {
-            padding-right: 40px;
-            /* Göz ikonunun olduğu yer üçün boşluq sağ tərəfdə */
+        .subject:hover {
+            background-color: #e0f7fa;
         }
 
-        .password-container .eye-icon {
+        .toggle-icon {
             position: absolute;
             right: 10px;
-            /* Sağ tərəfə yerləşdirildi */
-            top: 50%;
-            transform: translateY(-50%);
-            cursor: pointer;
-            color: #333;
+            font-size: 0.8em;
+            transition: transform 0.3s;
         }
 
-        .error-message {
-            color: red;
-            font-size: 17px;
-            margin-top: 5px;
+        .topic-list {
             display: none;
-            /* Başlanğıcda gizlidir */
+            padding-left: 20px;
         }
 
-        /* Şifrəni unutmusunuz formunun görünüşü */
-        .forgot-password-link {
-            text-align: right;
+        .topic {
+            margin: 5px 0;
+        }
+
+        .exam-btn {
             margin-top: 10px;
-        }
-
-        .forgot-password-link a {
-            color: #007bff;
-            cursor: pointer;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
             text-decoration: none;
+            display: inline-block;
         }
 
-        .forgot-password-link a:hover {
-            text-decoration: underline;
+        .exam-btn:hover {
+            background-color: #388e3c;
         }
     </style>
+
+
+    <!-- Papercss Kitabı -->
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.0/dist/paper.min.css">
+    <!-- Font Awesome Kitabı -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 
 <body>
 
+
+    <!-- Naviqasiya Barı -->
+    <div class="navbar">
+        <!-- Loqo -->
+        <div class="logo">
+            <img src="logo.png" alt=" Loqo">
+        </div>
+
+        <!-- Axtarış barı -->
+        <div class="search-bar">
+            <input type="text" placeholder="Axtarış">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <!-- Sağ tərəf linklər və düymələr -->
+        <div class="nav-links">
+            <div class="shopping-cart" onclick="openCartModal()">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <!-- Dil seçimi iconu -->
+            <div class="lang-icon" onclick="openModal()">
+                <i class="fas fa-globe"></i>
+            </div>
+            <!-- Daxil ol-->
+            <div class="auth-buttons">
+                <button class="btn-small login-btn" onclick="location.href='login&register.html';">
+                    <i class="fas fa-sign-in-alt"></i> Daxil ol
+                </button>
+            </div>
+        </div>
+
+        <!-- Modal pəncərə -->
+        <div id="languageModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">✖</span>
+                <h3>Dil Seçimi</h3>
+                <ul>
+                    <li><i class="fas fa-language"></i> Azərbaycanca</li>
+                    <li><i class="fas fa-language"></i> English</li>
+                    <li><i class="fas fa-language"></i> Русский</li>
+                    <li><i class="fas fa-language"></i> Türkçe</li>
+                </ul>
+            </div>
+        </div>
+
+
+        <!-- Sebet modalı -->
+        <div id="cartModal" class="modal">
+            <div class="cart-modal-content">
+                <span class="close-btn" onclick="closeCartModal()">✖</span>
+                <h3>Sebet</h3>
+                <ul>
+                    <li>Mal 1</li>
+                    <li>Mal 2</li>
+                    <li>Mal 3</li>
+                    <li><strong>Ümumi: 100 AZN</strong></li>
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+
+
     <div class="container">
-        <!-- Login Form -->
-        <div id="loginForm">
-            <h3 class="header">Daxil Ol</h3>
-            <form id="login" onsubmit="return loginUser(event)">
-                <div class="form-group">
-                    <label for="loginUsername">İstifadəçi Adı</label>
-                    <input type="text" id="loginUsername" class="input-block"
-                        placeholder="İstifadəçi adınızı daxil edin" required>
+        <h1>Kurslar</h1>
+        <div class="class-grid">
+            <!-- Kart 1 -->
+            <div class="class-card">
+                <div class="class-cover" onclick="location.href='kurs1.html';">
+                    <img src="https://via.placeholder.com/300x150?text=Kurs+1" alt="Kurs 1 cover">
                 </div>
-                <div class="form-group">
-                    <label for="loginPassword">Şifrə</label>
-                    <div class="password-container">
-                        <input type="password" id="loginPassword" class="input-block" placeholder="Şifrənizi daxil edin"
-                            required>
-                        <i class="fa fa-eye-slash eye-icon" id="eyeIcon"></i>
-                    </div>
+                <div class="class-content">
+                    <h3 onclick="location.href='kurs1.html';">Kurs 1</h3>
                 </div>
-                <button type="submit" class="btn-block btn-primary">Daxil Ol</button>
-                <div class="forgot-password-link" style="margin-top: 10px;">
-                    <a href="#" onclick="toggleForgotPassword()">Şifrəni unutmusunuz?</a>
-                </div>
-            </form>
-            <div class="toggle-link" style="margin-top: 40px;">
-                Hesabınız yoxdur? <a onclick="toggleForms()">Qeydiyyatdan keçin</a>
             </div>
-        </div>
 
-        <!-- Registration Form -->
-        <div id="registerForm" class="hidden">
-            <h3 class="header">Qeydiyyatdan Keç</h3>
-            <form id="register" onsubmit="return registerUser(event)">
-                <div class="form-group">
-                    <label for="registerUsername">İstifadəçi Adı</label>
-                    <input type="text" id="registerUsername" class="input-block"
-                        placeholder="İstifadəçi adınızı daxil edin" required>
-                    <div id="usernameError" class="error-message">İstifadəçi adı 4-20 simvol arasında olmalıdır!</div>
+            <!-- Kart 2 -->
+            <div class="class-card">
+                <div class="class-cover" onclick="location.href='kurs2.html';">
+                    <img src="https://via.placeholder.com/300x150?text=Kurs+2" alt="Kurs 2 cover">
                 </div>
-                <div class="form-group">
-                    <label for="registerPassword">Şifrə</label>
-                    <div class="password-container">
-                        <input type="password" id="registerPassword" class="input-block"
-                            placeholder="Şifrənizi daxil edin" required>
-                        <i class="fa fa-eye-slash eye-icon" id="eyeIconReg"></i>
-                    </div>
-                    <div id="passwordError" class="error-message">Şifrə minimum 8 simvol, bir böyük hərf, bir kiçik hərf
-                        və bir ədəd olmalıdır!</div>
+                <div class="class-content">
+                    <h3 onclick="location.href='kurs2.html';">Kurs 2</h3>
                 </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Şifrəni Təkrar Daxil Edin</label>
-                    <div class="password-container">
-                        <input type="password" id="confirmPassword" class="input-block"
-                            placeholder="Şifrəni təsdiq edin" required>
-                        <i class="fa fa-eye-slash eye-icon" id="eyeIconConfirm"></i>
-                    </div>
-                    <div id="confirmPasswordError" class="error-message">Şifrələr uyğun gəlmir!</div>
-                </div>
-                <button type="submit" class="btn-block btn-primary">Qeydiyyatdan Keç</button>
-            </form>
-            <div class="toggle-link">
-                Hesabınız var? <a onclick="toggleForms()">Daxil olun</a>
             </div>
-        </div>
 
-        <!-- Forgot Password Form -->
-        <div id="forgotPasswordForm" class="hidden">
-            <h3 class="header">Şifrəni Unutmusunuz?</h3>
-            <form id="forgotPassword" onsubmit="return submitForgotPassword(event)">
-                <div class="form-group">
-                    <label for="forgotEmail">E-poçt</label>
-                    <input type="email" id="forgotEmail" class="input-block" placeholder="E-poçt ünvanınızı daxil edin"
-                        required>
+            <!-- Kart 3 -->
+            <div class="class-card">
+                <div class="class-cover" onclick="location.href='kurs3.html';">
+                    <img src="https://via.placeholder.com/300x150?text=Kurs+3" alt="Kurs 3 cover">
                 </div>
-                <button type="submit" class="btn-block btn-primary">Göndər</button>
-            </form>
-            <div class="toggle-link">
-                Geri dönmək istəyirsiniz? <a onclick="toggleLogin()">Daxil olun</a>
+                <div class="class-content">
+                    <h3 onclick="location.href='kurs3.html';">Kurs 3</h3>
+                </div>
+            </div>
+
+            <!-- Kart 4 -->
+            <div class="class-card">
+                <div class="class-cover" onclick="location.href='kurs4.html';">
+                    <img src="https://via.placeholder.com/300x150?text=Kurs+4" alt="Kurs 4 cover">
+                </div>
+                <div class="class-content">
+                    <h3 onclick="location.href='kurs4.html';">Kurs 4</h3>
+                </div>
             </div>
         </div>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
     <script>
-        // Login və registrasiya formaları arasında keçid etmək
-        function toggleForms() {
-            document.getElementById('loginForm').classList.toggle('hidden');
-            document.getElementById('registerForm').classList.toggle('hidden');
-            document.getElementById('forgotPasswordForm').classList.add('hidden');
+        function toggleSubjects(courseId) {
+            const subjects = document.getElementById(`subjects-${courseId}`);
+            subjects.style.display = subjects.style.display === 'block' ? 'none' : 'block';
         }
 
-        // Şifrəni unutmusunuz formu açmaq
-        function toggleForgotPassword() {
-            document.getElementById('loginForm').classList.add('hidden');
-            document.getElementById('registerForm').classList.add('hidden');
-            document.getElementById('forgotPasswordForm').classList.remove('hidden');
+        function toggleTopics(courseId, subjectId) {
+            const topics = document.getElementById(`topics-${courseId}-${subjectId}`);
+            const icon = document.getElementById(`icon-${courseId}-${subjectId}`);
+            topics.style.display = topics.style.display === 'block' ? 'none' : 'block';
+            icon.style.transform = topics.style.display === 'block' ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        // Şifrəni unutmusunuz formundan geri login formuna keçid
-        function toggleLogin() {
-            document.getElementById('loginForm').classList.remove('hidden');
-            document.getElementById('forgotPasswordForm').classList.add('hidden');
+        // Modal açma funksiyası
+        function openModal() {
+            document.getElementById('languageModal').style.display = 'flex';
         }
 
-        // İstifadəçi daxil olma və qeydiyyatdan keçmə funksiyalarını olduğu kimi saxlayaq
-        let users = [];
+        // Modal bağlama funksiyası
+        function closeModal() {
+            document.getElementById('languageModal').style.display = 'none';
+        }
 
-        function loginUser(event) {
-            event.preventDefault();
-            const username = document.getElementById('loginUsername').value;
-            const password = document.getElementById('loginPassword').value;
+        // Sebet modalı açma funksiyası
+        function openCartModal() {
+            document.getElementById('cartModal').style.display = 'flex';
+        }
 
-            const user = users.find(user => user.username === username && user.password === password);
+        // Sebet modalı bağlama funksiyası
+        function closeCartModal() {
+            document.getElementById('cartModal').style.display = 'none';
+        }
 
-            if (user) {
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Uğurla daxil oldunuz!',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'İstifadəçi adı və ya şifrə yalnışdır!',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
+        // Modal dışına klikləndə bağla
+        window.onclick = function (event) {
+            if (event.target == document.getElementById('languageModal')) {
+                closeModal();
+            } else if (event.target == document.getElementById('cartModal')) {
+                closeCartModal();
             }
         }
-
-        function registerUser(event) {
-            event.preventDefault();
-            const username = document.getElementById('registerUsername').value;
-            const password = document.getElementById('registerPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-
-            let hasError = false;
-
-            if (username.length < 4 || username.length > 20) {
-                document.getElementById('usernameError').style.display = 'block';
-                hasError = true;
-            } else {
-                document.getElementById('usernameError').style.display = 'none';
-            }
-
-            if (!validatePassword(password)) {
-                document.getElementById('passwordError').style.display = 'block';
-                hasError = true;
-            } else {
-                document.getElementById('passwordError').style.display = 'none';
-            }
-
-            if (password !== confirmPassword) {
-                document.getElementById('confirmPasswordError').style.display = 'block';
-                hasError = true;
-            } else {
-                document.getElementById('confirmPasswordError').style.display = 'none';
-            }
-
-            if (!hasError) {
-                users.push({ username: username, password: password });
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Qeydiyyat uğurla tamamlandı!',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                toggleForms();
-            }
-        }
-
-        // Şifrəni unutmusunuz formunu göndərmək
-        function submitForgotPassword(event) {
-            event.preventDefault();
-            const email = document.getElementById('forgotEmail').value;
-
-            Swal.fire({
-                icon: 'success',
-                title: 'Şifrə sıfırlama linki e-poçtunuza göndərildi!',
-                showConfirmButton: false,
-                timer: 1500
-            });
-            toggleLogin(); // Geri login formuna keç
-        }
-
-        // Şifrəni göstərmək və gizlətmək
-        function togglePasswordVisibility(inputId, eyeIconId) {
-            const input = document.getElementById(inputId);
-            const eyeIcon = document.getElementById(eyeIconId);
-
-            if (input.type === 'password') {
-                input.type = 'text';
-                eyeIcon.classList.remove('fa-eye-slash');
-                eyeIcon.classList.add('fa-eye');
-            } else {
-                input.type = 'password';
-                eyeIcon.classList.remove('fa-eye');
-                eyeIcon.classList.add('fa-eye-slash');
-            }
-        }
-
-        document.getElementById('eyeIcon').addEventListener('click', function () {
-            togglePasswordVisibility('loginPassword', 'eyeIcon');
-        });
-
-        document.getElementById('eyeIconReg').addEventListener('click', function () {
-            togglePasswordVisibility('registerPassword', 'eyeIconReg');
-        });
-
-        document.getElementById('eyeIconConfirm').addEventListener('click', function () {
-            togglePasswordVisibility('confirmPassword', 'eyeIconConfirm');
-        });
-
     </script>
 
 </body>

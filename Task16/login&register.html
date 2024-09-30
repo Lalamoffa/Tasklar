@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login və Registrasiya Sistemi</title>
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.0/dist/paper.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+>
+
+    <style>
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f6f6f6;
+        }
+
+        .container {
+            width: 350px;
+            margin: auto;
+            border: 1px solid black;
+            border-radius: 20px;
+            padding: 10px 20px;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .toggle-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .toggle-link a {
+            cursor: pointer;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .password-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .password-container input {
+            padding-right: 40px;
+            /* Göz ikonunun olduğu yer üçün boşluq sağ tərəfdə */
+        }
+
+        .password-container .eye-icon {
+            position: absolute;
+            right: 10px;
+            /* Sağ tərəfə yerləşdirildi */
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
+            color: #333;
+        }
+
+        .error-message {
+            color: red;
+            font-size: 17px;
+            margin-top: 5px;
+            display: none;
+            /* Başlanğıcda gizlidir */
+        }
+
+        /* Şifrəni unutmusunuz formunun görünüşü */
+        .forgot-password-link {
+            text-align: right;
+            margin-top: 10px;
+        }
+
+        .forgot-password-link a {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .forgot-password-link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Login Form -->
+        <div id="loginForm">
+            <h3 class="header">Daxil Ol</h3>
+            <form id="login" onsubmit="return loginUser(event)">
+                <div class="form-group">
+                    <label for="loginUsername">İstifadəçi Adı</label>
+                    <input type="text" id="loginUsername" class="input-block"
+                        placeholder="İstifadəçi adınızı daxil edin" required>
+                </div>
+                <div class="form-group">
+                    <label for="loginPassword">Şifrə</label>
+                    <div class="password-container">
+                        <input type="password" id="loginPassword" class="input-block" placeholder="Şifrənizi daxil edin"
+                            required>
+                        <i class="fa fa-eye-slash eye-icon" id="eyeIcon"></i>
+                    </div>
+                </div>
+                <button type="submit" class="btn-block btn-primary">Daxil Ol</button>
+                <div class="forgot-password-link" style="margin-top: 10px;">və ya
+                    <a href="#" onclick="toggleForgotPassword()">Şifrəni unutmusunuz?</a>
+                </div>
+            </form>
+            <div class="toggle-link" style="margin-top: 40px;">
+                Hesabınız yoxdur? <a onclick="toggleForms()">Qeydiyyatdan keçin</a>
+            </div>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="registerForm" class="hidden">
+            <h3 class="header">Qeydiyyatdan Keç</h3>
+            <form id="register" onsubmit="return registerUser(event)">
+                <div class="form-group">
+                    <label for="registerUsername">İstifadəçi Adı</label>
+                    <input type="text" id="registerUsername" class="input-block"
+                        placeholder="İstifadəçi adınızı daxil edin" required>
+                    <div id="usernameError" class="error-message">İstifadəçi adı 4-20 simvol arasında olmalıdır!</div>
+                </div>
+                <div class="form-group">
+                    <label for="registerPassword">Şifrə</label>
+                    <div class="password-container">
+                        <input type="password" id="registerPassword" class="input-block"
+                            placeholder="Şifrənizi daxil edin" required>
+                        <i class="fa fa-eye-slash eye-icon" id="eyeIconReg"></i>
+                    </div>
+                    <div id="passwordError" class="error-message">Şifrə minimum 8 simvol, bir böyük hərf, bir kiçik hərf
+                        və bir ədəd olmalıdır!</div>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Şifrəni Təkrar Daxil Edin</label>
+                    <div class="password-container">
+                        <input type="password" id="confirmPassword" class="input-block"
+                            placeholder="Şifrəni təsdiq edin" required>
+                        <i class="fa fa-eye-slash eye-icon" id="eyeIconConfirm"></i>
+                    </div>
+                    <div id="confirmPasswordError" class="error-message">Şifrələr uyğun gəlmir!</div>
+                </div>
+                <button type="submit" class="btn-block btn-primary">Qeydiyyatdan Keç</button>
+            </form>
+            <div class="toggle-link">
+                Hesabınız var? <a onclick="toggleForms()">Daxil olun</a>
+            </div>
+        </div>
+
+        <!-- Forgot Password Form -->
+        <div id="forgotPasswordForm" class="hidden">
+            <h3 class="header">Şifrəni Unutmusunuz?</h3>
+            <form id="forgotPassword" onsubmit="return submitForgotPassword(event)">
+                <div class="form-group">
+                    <label for="forgotEmail">E-poçt</label>
+                    <input type="email" id="forgotEmail" class="input-block" placeholder="E-poçt ünvanınızı daxil edin"
+                        required>
+                </div>
+                <button type="submit" class="btn-block btn-primary">Göndər</button>
+            </form>
+            <div class="toggle-link">
+                Geri dönmək istəyirsiniz? <a onclick="toggleLogin()">Daxil olun</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+
+    <script>
+        // Login və registrasiya formaları arasında keçid etmək
+        function toggleForms() {
+            document.getElementById('loginForm').classList.toggle('hidden');
+            document.getElementById('registerForm').classList.toggle('hidden');
+            document.getElementById('forgotPasswordForm').classList.add('hidden');
+        }
+
+        // Şifrəni unutmusunuz formu açmaq
+        function toggleForgotPassword() {
+            document.getElementById('loginForm').classList.add('hidden');
+            document.getElementById('registerForm').classList.add('hidden');
+            document.getElementById('forgotPasswordForm').classList.remove('hidden');
+        }
+
+        // Şifrəni unutmusunuz formundan geri login formuna keçid
+        function toggleLogin() {
+            document.getElementById('loginForm').classList.remove('hidden');
+            document.getElementById('forgotPasswordForm').classList.add('hidden');
+        }
+
+        // İstifadəçi daxil olma və qeydiyyatdan keçmə funksiyalarını olduğu kimi saxlayaq
+        let users = [];
+
+        function loginUser(event) {
+            event.preventDefault();
+            const username = document.getElementById('loginUsername').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const user = users.find(user => user.username === username && user.password === password);
+
+            if (user) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Uğurla daxil oldunuz!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'İstifadəçi adı və ya şifrə yalnışdır!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+            }
+        }
+
+        function registerUser(event) {
+            event.preventDefault();
+            const username = document.getElementById('registerUsername').value;
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            let hasError = false;
+
+            if (username.length < 4 || username.length > 20) {
+                document.getElementById('usernameError').style.display = 'block';
+                hasError = true;
+            } else {
+                document.getElementById('usernameError').style.display = 'none';
+            }
+
+            if (!validatePassword(password)) {
+                document.getElementById('passwordError').style.display = 'block';
+                hasError = true;
+            } else {
+                document.getElementById('passwordError').style.display = 'none';
+            }
+
+            if (password !== confirmPassword) {
+                document.getElementById('confirmPasswordError').style.display = 'block';
+                hasError = true;
+            } else {
+                document.getElementById('confirmPasswordError').style.display = 'none';
+            }
+
+            if (!hasError) {
+                users.push({ username: username, password: password });
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Qeydiyyat uğurla tamamlandı!',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
+                toggleForms();
+            }
+        }
+
+        // Şifrəni unutmusunuz formunu göndərmək
+        function submitForgotPassword(event) {
+            event.preventDefault();
+            const email = document.getElementById('forgotEmail').value;
+
+            Swal.fire({
+                icon: 'success',
+                title: 'Şifrə sıfırlama linki e-poçtunuza göndərildi!',
+                showConfirmButton: false,
+                timer: 1500
+            });
+            toggleLogin(); // Geri login formuna keç
+        }
+
+        // Şifrəni göstərmək və gizlətmək
+        function togglePasswordVisibility(inputId, eyeIconId) {
+            const input = document.getElementById(inputId);
+            const eyeIcon = document.getElementById(eyeIconId);
+
+            if (input.type === 'password') {
+                input.type = 'text';
+                eyeIcon.classList.remove('fa-eye-slash');
+                eyeIcon.classList.add('fa-eye');
+            } else {
+                input.type = 'password';
+                eyeIcon.classList.remove('fa-eye');
+                eyeIcon.classList.add('fa-eye-slash');
+            }
+        }
+
+        document.getElementById('eyeIcon').addEventListener('click', function () {
+            togglePasswordVisibility('loginPassword', 'eyeIcon');
+        });
+
+        document.getElementById('eyeIconReg').addEventListener('click', function () {
+            togglePasswordVisibility('registerPassword', 'eyeIconReg');
+        });
+
+        document.getElementById('eyeIconConfirm').addEventListener('click', function () {
+            togglePasswordVisibility('confirmPassword', 'eyeIconConfirm');
+        });
+
+    </script>
+
+</body>
+
+</html>

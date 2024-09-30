@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurs 2</title>
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.0/dist/paper.min.css">
+    <style>
+        body {
+            background-color: #e3f2fd;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1976d2;
+            margin-bottom: 40px;
+        }
+
+        .subject-list {
+            padding: 0;
+            list-style-type: none;
+        }
+
+        .subject {
+            background-color: #d3d2d2;
+            margin: 10px 0;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            text-align: left;
+            position: relative;
+            font-weight: bold;
+            font-size: 1.1em;
+            transition: background-color 0.3s;
+        }
+
+        .subject:hover {
+            background-color: #b0b0b0; /* Hover effekti */
+        }
+
+        .toggle-icon {
+            position: absolute;
+            right: 10px;
+            font-size: 1em;
+            transition: transform 0.3s;
+        }
+
+        .topic-list {
+            display: none;
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+
+        .topic {
+            margin: 5px 0;
+            color: #333;
+            font-size: 0.95em;
+            border: 1px solid #c0c0c0;
+            padding: 8px;
+            border-radius: 3px;
+            background-color: #f5f5f5; /* Alt bölmələrin fonu */
+            transition: background-color 0.3s;
+        }
+
+        
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Kurs 2 - Dərsliklər</h1>
+        <ul class="subject-list" id="subjects-1">
+            <li class="subject" onclick="toggleTopics(1, 1)">Mövzu 1 <span class="toggle-icon" id="icon-1-1">▼</span></li>
+            <ul class="topic-list" id="topics-1-1">
+                <li class="topic">Bölmə 1</li>
+                <li class="topic">Bölmə 2</li>
+            </ul>
+
+            <li class="subject" onclick="toggleTopics(1, 2)">Mövzu 2 <span class="toggle-icon" id="icon-1-2">▼</span></li>
+            <ul class="topic-list" id="topics-1-2">
+                <li class="topic">Bölmə 1</li>
+                <li class="topic">Bölmə 2</li>
+            </ul>
+        </ul>
+    </div>
+
+    <script>
+        function toggleTopics(courseId, subjectId) {
+            const topics = document.getElementById(`topics-${courseId}-${subjectId}`);
+            const icon = document.getElementById(`icon-${courseId}-${subjectId}`);
+            topics.style.display = topics.style.display === 'block' ? 'none' : 'block';
+            icon.style.transform = topics.style.display === 'block' ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
+    </script>
+
+</body>
+
+</html>

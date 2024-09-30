@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kurs 3</title>
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.0/dist/paper.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .profile-header {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            background-color: #fff;
+            padding: 50px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .instructor-info {
+            flex: 2;
+        }
+
+        .instructor-info h1 {
+            font-size: 2.2em;
+            margin: 0;
+            color: #1976d2;
+        }
+
+        .instructor-info p {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .stats {
+            display: flex;
+            margin-top: 10px;
+        }
+
+        .stat {
+            margin-right: 20px;
+        }
+
+        .stat .number {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #1976d2;
+        }
+
+        .social-section {
+            display: flex;
+            align-items: center;
+        }
+
+        .social-links {
+            margin-left: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        .social-links button {
+            margin-bottom: 10px;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid #1976d2;
+        }
+
+        .about {
+            margin-top: 10px;
+            padding: 50px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .courses {
+            margin-top: 20px;
+        }
+
+        .course-card {
+            display: inline-block;
+            width: calc(50% - 10px);
+            margin: 10px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            text-align: left;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .course-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+        }
+
+        .course-title {
+            font-size: 1.1em;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .course-title:hover {
+            color: #1976d2;
+        }
+
+        .course-meta {
+            color: #555;
+            font-size: 0.8em;
+            margin-top: 5px;
+        }
+
+        .course-price {
+            font-weight: bold;
+            color: #1976d2;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <!-- Profile Header -->
+        <div class="profile-header">
+            <div class="instructor-info">
+                <h1>Blue Digital Media</h1>
+                <p>Explore, Engage, Excel: Online Education Redefined</p>
+                <div class="stats">
+                    <div class="stat">
+                        <div class="heading-sm">Toplam öğrenci sayısı</div>
+                        <div class="number">461.887</div>
+                    </div>
+                    <div class="stat">
+                        <div class="heading-sm">Yorumlar</div>
+                        <div class="number">5.863</div>
+                    </div>
+                </div>
+            </div>
+            <!-- Social Links and Profile Image -->
+            <div class="social-section">
+                <img src="default-img.jpg" alt="Instructor Profile" class="profile-image">
+                <div class="social-links">
+                    <button class="btn-small btn-primary">Web Sitesi</button>
+                    <button class="btn-small btn-secondary">Twitter</button>
+                    <button class="btn-small btn-secondary">Facebook</button>
+                    <button class="btn-small btn-secondary">LinkedIn</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Section -->
+        <div class="about">
+            <h2>Hakkımda</h2>
+            <p>We are dedicated to developing and providing exceptional educational content across a diverse range of
+                topics. Enhance your career by enrolling in one of our courses. For those seeking to advance their
+                skills, search no further. We uphold rigorous standards in our course offerings, and all our instructors
+                are accredited professionals in their respective industries. Start your learning adventure with us
+                today.</p>
+        </div>
+
+        <!-- Courses Section -->
+        <div class="courses">
+            <h2>Kurslarım </h2>
+            <div class="course-card">
+                <div class="class-cover" onclick="location.href='course3.html';">
+                    <img src="https://via.placeholder.com/300x150" alt="HTML, CSS, JavaScript, React Course">
+                </div>
+                <div class="course-title" onclick="location.href='course3.html';">HTML, CSS, JavaScript, React - Online
+                    Certification Course</div>
+                <div class="course-meta">YouAccel Training, Blue Digital Media</div>
+                <div class="course-meta">4.5 ★ (717)</div>
+                <div class="course-meta">Toplam 16 saat - 200 dərs - Yeni Başlayan</div>
+                <div class="course-price">54,99 $</div>
+            </div>
+
+            <div class="course-card">
+                <div class="class-cover" onclick="location.href='course3.html';">
+                    <img src="https://via.placeholder.com/300x150" alt="HTML, CSS, JavaScript, React Course">
+                </div>
+                <div class="course-title" onclick="location.href='course3.html';">HTML, CSS, JavaScript, React - Online
+                    Certification Course</div>
+                <div class="course-meta">YouAccel Training, Blue Digital Media</div>
+                <div class="course-meta">4.5 ★ (717)</div>
+                <div class="course-meta">Toplam 16 saat - 200 dərs - Yeni Başlayan</div>
+                <div class="course-price">54,99 $</div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

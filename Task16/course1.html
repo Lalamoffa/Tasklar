@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dərslər Accordion</title>
+    <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.0/dist/paper.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+
+        .accordion {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 15px;
+        }
+
+        .accordion-header {
+            padding: 15px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .accordion-header:hover {
+            background: #f1f1f1;
+        }
+
+        .accordion-content {
+            display: none;
+            padding: 15px;
+            border-top: 1px solid #e6e6e6;
+        }
+       
+
+        .accordion-icon {
+            transition: transform 0.3s;
+        }
+
+        .accordion-icon.rotate {
+            transform: rotate(90deg);
+        }
+
+        .exam-btn {
+            margin-top: 10px;
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .exam-btn:hover {
+            background-color: #388e3c;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Dərslər</h1>
+
+    <!-- Accordion 1 -->
+    <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>HTML ilə Tanışlıq</span>
+            <i class="fas fa-chevron-right accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+            <ul>
+                <li>Dərs 1: HTML Nədir?</li>
+                <li>Dərs 2: HTML Elementləri</li>
+                <li>Dərs 3: HTML Struktur</li>
+            </ul>
+            <a href="imtahan1.html" class="exam-btn">İmtahan</a>
+        </div>
+    </div>
+
+    <!-- Accordion 2 -->
+    <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>CSS ilə Dizayn</span>
+            <i class="fas fa-chevron-right accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+            <ul>
+                <li>Dərs 1: CSS Nədir?</li>
+                <li>Dərs 2: CSS Seçiciləri</li>
+                <li>Dərs 3: CSS Layout</li>
+            </ul>
+            <a href="imtahan2.html" class="exam-btn">İmtahan</a>
+        </div>
+    </div>
+
+    <!-- Accordion 3 -->
+    <div class="accordion">
+        <div class="accordion-header" onclick="toggleAccordion(this)">
+            <span>JavaScript ilə İnteraktivlik</span>
+            <i class="fas fa-chevron-right accordion-icon"></i>
+        </div>
+        <div class="accordion-content">
+            <ul>
+                <li>Dərs 1: JavaScript Nədir?</li>
+                <li>Dərs 2: JavaScript Dəyişənləri</li>
+                <li>Dərs 3: JavaScript Funksiyaları</li>
+            </ul>
+            <a href="imtahan3.html" class="exam-btn">İmtahan</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    function toggleAccordion(header) {
+        const content = header.nextElementSibling;
+        const icon = header.querySelector('.accordion-icon');
+        
+        if (content.style.display === "block") {
+            content.style.display = "none";
+            icon.classList.remove('rotate');
+        } else {
+            content.style.display = "block";
+            icon.classList.add('rotate');
+        }
+    }
+</script>
+
+</body>
+</html>
