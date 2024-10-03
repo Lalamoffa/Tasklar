@@ -97,6 +97,39 @@
             cursor: pointer;
         }
 
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            padding: 12px 16px;
+            z-index: 1;
+        }
+
+        /* Dillərin üslubu */
+        .dropdown-content ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .dropdown-content ul li {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        /* Hover zamanı seçilən dilin arxa fonunu dəyişdir */
+        .dropdown-content ul li:hover {
+            background-color: #dad7d7;
+        }
+
         /* Modal pəncərə üçün stil */
         .modal {
             display: none;
@@ -112,7 +145,7 @@
         }
 
         .modal-content {
-            background-color: #fff;
+            background-color: #af0a0a;
             padding: 20px;
             border-radius: 10px;
             width: 300px;
@@ -145,7 +178,7 @@
             margin: 20px auto;
             padding: 20px;
         }
-        
+
         .courses {
             display: grid;
             grid-template-columns: repeat(3, 2fr 2fr 2fr);
@@ -197,6 +230,8 @@
             color: #1976d2;
             margin-top: 10px;
         }
+
+    
     </style>
 
 
@@ -213,7 +248,7 @@
     <div class="navbar">
         <!-- Loqo -->
         <div class="logo">
-            <img src="logo.png" alt=" Loqo">
+            <img src="images/logo-udemy.svg" alt=" Loqo">
         </div>
 
         <!-- Axtarış barı -->
@@ -228,28 +263,23 @@
                 <i class="fas fa-shopping-cart"></i>
             </div>
             <!-- Dil seçimi iconu -->
-            <div class="lang-icon" onclick="openModal()">
+
+            <div class="dropdown lang-icon" onclick="toggleDropdown()">
                 <i class="fas fa-globe"></i>
+                <div class="dropdown-content">
+                    <ul>
+                        <li>English</li>
+                        <li>Русский</li>
+                        <li>Türkçe</li>
+                    </ul>
+                </div>
             </div>
+
             <!-- Daxil ol-->
             <div class="auth-buttons">
                 <button class="btn-small login-btn" onclick="location.href='login&register.html';">
                     <i class="fas fa-sign-in-alt"></i> Daxil ol
                 </button>
-            </div>
-        </div>
-
-        <!-- Modal pəncərə -->
-        <div id="languageModal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn" onclick="closeModal()">✖</span>
-                <h3>Dil Seçimi</h3>
-                <ul>
-                    <li><i class="fas fa-language"></i> Azərbaycanca</li>
-                    <li><i class="fas fa-language"></i> English</li>
-                    <li><i class="fas fa-language"></i> Русский</li>
-                    <li><i class="fas fa-language"></i> Türkçe</li>
-                </ul>
             </div>
         </div>
 
@@ -275,7 +305,7 @@
 
     <div class="courses">
 
-        <div class="course-card">
+        <div class="  dropdown course-card">
             <div class="class-cover" onclick="location.href='kurs1.html';">
                 <img src="images/img.jpg" alt="HTML, CSS, JavaScript, React Course">
             </div>
@@ -311,7 +341,7 @@
             <div class="course-price">54,99 $</div>
         </div>
 
-        
+
         <div class="course-card">
             <div class="class-cover" onclick="location.href='kurs3.html';">
                 <img src="images/img.jpg" alt="HTML, CSS, JavaScript, React Course">
@@ -339,16 +369,6 @@
             icon.style.transform = topics.style.display === 'block' ? 'rotate(180deg)' : 'rotate(0deg)';
         }
 
-        // Modal açma funksiyası
-        function openModal() {
-            document.getElementById('languageModal').style.display = 'flex';
-        }
-
-        // Modal bağlama funksiyası
-        function closeModal() {
-            document.getElementById('languageModal').style.display = 'none';
-        }
-
         // Sebet modalı açma funksiyası
         function openCartModal() {
             document.getElementById('cartModal').style.display = 'flex';
@@ -367,6 +387,24 @@
                 closeCartModal();
             }
         }
+
+        function toggleDropdown() {
+            var dropdownContent = document.querySelector('.dropdown .dropdown-content');
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        }
+
+        // Saytın digər yerlərinə kliklədikdə dropdown-u bağlamaq
+        window.onclick = function (event) {
+            if (!event.target.closest('.dropdown')) {
+                var dropdownContent = document.querySelector('.dropdown .dropdown-content');
+                dropdownContent.style.display = "none";
+            }
+        }
+
     </script>
 
 </body>

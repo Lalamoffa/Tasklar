@@ -8,21 +8,89 @@
     <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.0/dist/paper.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
->
+    
 
     <style>
-
+        *{
+            margin: 0;
+            padding: 0;
+        }
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             background-color: #f6f6f6;
         }
 
+        /* Naviqasiya çubuğu */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e6e6e6;
+            width: 100%;
+        }
+
+        /* Loqo */
+        .navbar .logo img {
+            height: 40px;
+        }
+
+        /* Axtarış barı */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            position: relative;
+            flex-grow: 1;
+            margin-left: 20px;
+            max-width: 600px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 8px 15px;
+            padding-right: 35px;
+            border: 1px solid #e6e6e6;
+            border-radius: 50px;
+            font-size: 14px;
+        }
+
+        .search-bar .search-icon {
+            position: absolute;
+            right: 10px;
+            font-size: 18px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        /* Sağ tərəf linklər və düymələr */
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .shopping-cart,
+        .lang-icon {
+            font-size: 20px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        /* Daxil ol düyməsi */
+        .auth-buttons .login-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 3px;
+            font-size: 15px;
+            cursor: pointer;
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Modal üçün mərkəzləşdirilmiş stil */
         .container {
             width: 350px;
-            margin: auto;
+            margin-top: 50px;
             border: 1px solid black;
             border-radius: 20px;
             padding: 10px 20px;
@@ -54,13 +122,11 @@
 
         .password-container input {
             padding-right: 40px;
-            /* Göz ikonunun olduğu yer üçün boşluq sağ tərəfdə */
         }
 
         .password-container .eye-icon {
             position: absolute;
             right: 10px;
-            /* Sağ tərəfə yerləşdirildi */
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
@@ -72,10 +138,9 @@
             font-size: 17px;
             margin-top: 5px;
             display: none;
-            /* Başlanğıcda gizlidir */
         }
 
-        /* Şifrəni unutmusunuz formunun görünüşü */
+        /* Şifrəni unutmusunuz linki */
         .forgot-password-link {
             text-align: right;
             margin-top: 10px;
@@ -94,6 +159,37 @@
 </head>
 
 <body>
+
+    <!-- Naviqasiya Barı -->
+    <div class="navbar">
+        <!-- Loqo -->
+        <div class="logo" onclick="location.href='index.html';">
+            <img src="images/logo-udemy.svg" alt="Loqo">
+        </div>
+
+        <!-- Axtarış barı -->
+        <div class="search-bar">
+            <input type="text" placeholder="Axtarış">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <!-- Sağ tərəf linklər və düymələr -->
+        <div class="nav-links">
+            <div class="shopping-cart" onclick="openCartModal()">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <!-- Dil seçimi iconu -->
+            <div class="lang-icon" onclick="openModal()">
+                <i class="fas fa-globe"></i>
+            </div>
+            <!-- Daxil ol -->
+            <div class="auth-buttons">
+                <button class="btn-small login-btn" onclick="location.href='login&register.html';">
+                    <i class="fas fa-sign-in-alt"></i> Daxil ol
+                </button>
+            </div>
+        </div>
+    </div>
 
     <div class="container">
         <!-- Login Form -->

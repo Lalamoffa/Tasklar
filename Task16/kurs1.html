@@ -14,6 +14,76 @@
             font-family: 'Arial', sans-serif;
         }
 
+        
+        /* Naviqasiya çubuğu */
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background-color: #fff;
+            padding: 10px 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-bottom: 1px solid #e6e6e6;
+            width: 100%;
+        }
+
+        /* Loqo */
+        .navbar .logo img {
+            height: 40px;
+        }
+
+        /* Axtarış barı */
+        .search-bar {
+            display: flex;
+            align-items: center;
+            position: relative;
+            flex-grow: 1;
+            margin-left: 20px;
+            max-width: 600px;
+        }
+
+        .search-bar input {
+            width: 100%;
+            padding: 8px 15px;
+            padding-right: 35px;
+            border: 1px solid #e6e6e6;
+            border-radius: 50px;
+            font-size: 14px;
+        }
+
+        .search-bar .search-icon {
+            position: absolute;
+            right: 10px;
+            font-size: 18px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        /* Sağ tərəf linklər və düymələr */
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .shopping-cart,
+        .lang-icon {
+            font-size: 20px;
+            margin-right: 20px;
+            cursor: pointer;
+        }
+
+        /* Daxil ol düyməsi */
+        .auth-buttons .login-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 3px;
+            font-size: 15px;
+            cursor: pointer;
+            background-color: #333;
+            color: #fff;
+        }
+
+
         .container {
             max-width: 1200px;
             margin: 20px auto;
@@ -70,15 +140,15 @@
         }
 
         .social-links {
-            margin-top: 20px;
-            margin-left: 20px;
             display: flex;
-            flex-direction: column;
+            justify-content: center;
             align-items: flex-start;
+
         }
 
         .social-links button {
-            margin-bottom: 10px;
+            margin-bottom: 10px; 
+            margin-left: 10px;
         }
 
         .profile-image {
@@ -153,6 +223,37 @@
 
 <body>
 
+     <!-- Naviqasiya Barı -->
+     <div class="navbar">
+        <!-- Loqo -->
+        <div class="logo" onclick="location.href='index.html';">
+            <img src="images/logo-udemy.svg" alt="Loqo">
+        </div>
+
+        <!-- Axtarış barı -->
+        <div class="search-bar">
+            <input type="text" placeholder="Axtarış">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <!-- Sağ tərəf linklər və düymələr -->
+        <div class="nav-links">
+            <div class="shopping-cart" onclick="openCartModal()">
+                <i class="fas fa-shopping-cart"></i>
+            </div>
+            <!-- Dil seçimi iconu -->
+            <div class="lang-icon" onclick="openModal()">
+                <i class="fas fa-globe"></i>
+            </div>
+            <!-- Daxil ol -->
+            <div class="auth-buttons">
+                <button class="btn-small login-btn" onclick="location.href='login&register.html';">
+                    <i class="fas fa-sign-in-alt"></i> Daxil ol
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <!-- Profile Header -->
         <div class="profile-header">
@@ -189,16 +290,16 @@
                 <img src="images/default-img.jpg" alt="Instructor Profile" class="profile-image">
                 <div class="social-links">
                     <button class="btn-small btn-primary">
-                        <i class="fas fa-globe"></i> Web Sitesi
+                        <i class="fas fa-globe"></i> 
                     </button>
                     <button class="btn-small btn-secondary">
-                        <i class="fab fa-twitter"></i> Twitter
+                        <i class="fab fa-twitter"></i>
                     </button>
                     <button class="btn-small btn-secondary">
-                        <i class="fab fa-facebook-f"></i> Facebook
+                        <i class="fab fa-facebook-f"></i> 
                     </button>
                     <button class="btn-small btn-secondary">
-                        <i class="fab fa-linkedin-in"></i> LinkedIn
+                        <i class="fab fa-linkedin-in"></i>
                     </button>
                 </div>
             </div>
