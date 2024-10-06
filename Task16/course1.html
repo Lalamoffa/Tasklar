@@ -4,206 +4,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dərslər</title>
-    <link rel="stylesheet" href="https://unpkg.com/papercss@1.8.0/dist/paper.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-        }
-
-        body {
-            background-color: #f5f5f5;
-            font-family: Arial, sans-serif;
-        }
-
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            position: relative;
-        }
-
-        .dark-container {
-            
-            background-color: #2d2f31;
-            width: 100%;
-            height: 40vh;
-            color: #f1f1f1;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .card {
-            position: fixed;
-            width: 300px;
-            height: 400px;
-            margin-left: 1000px;
-            z-index: 1;
-        }
-
-        .card-body {
-            background-color: #fff;
-        }
-
-        .card-body button{
-            margin-top: 10px;
-            margin-left: 10px;
-        }
-        
-        
-        .dark-container h1,
-        h4 {
-            margin-left: 100px;
-        }
-
-        .accordions {
-            position: absolute;
-            width: 100%;
-            border: 1px solid rgb(170, 166, 166);
-            right: 200px;
-        }
-
-        .accordion {
-            background: #fff;
-            border-bottom: 1px solid rgb(170, 166, 166);
-
-        }
-
-        .accordion-header {
-            padding: 15px;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.3s;
-        }
-
-        .accordion-header:hover {
-            background: #f1f1f1;
-        }
-
-        .accordion-content {
-            display: none;
-            padding: 15px;
-            margin-left: 20px;
-            border-top: 1px solid #e6e6e6;
-        }
-
-
-        .accordion-icon {
-            transition: transform 0.3s;
-        }
-
-        .accordion-icon.rotate {
-            transform: rotate(90deg);
-        }
-
-        .exam-btn {
-            margin-top: 10px;
-            background-color: #4caf50;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 5px;
-            text-decoration: none;
-            display: inline-block;
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .exam-btn:hover {
-            background-color: #388e3c;
-        }
-    </style>
+    <title>course1</title>
+    <link rel="stylesheet" href="fonts/paper.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
-
 <body>
+    <nav class="navbar">
+        <div class="nav-header">
+            <div class="breadcrumbs">
+                <a href="#">Yazılım Geliştirme</a> >
+                <a href="#">Web Geliştirme</a> >
+                <span>Web Geliştirme Kursu</span>
+            </div>
 
-    <div class="dark-container">
-        <div class="container-header">
-            <h1>Dərslər</h1>
-            <h4>HTML, CSS, JavaScript, React - Online
-                Certification Course</h4>
+            <div class="course-header">
+                <h1>Modern Web Geliştirme Kursu | Sıfırdan Sektörün Yükselkerine</h1>
+                <p class="subtitle">
+                    Modern tekniklerle Web Geliştirme (Web Development) Öğrenin. HTML, CSS, Node, JavaScript, React,
+                    Angular, ASP.NET Core
+                </p>
+                <div class="course-info">
+                    <span class="rating">4.3 <span class="stars">⭐⭐⭐⭐</span> <a href="#">(10,268 puan)</a></span>
+                    <span>39.993 öğrenci</span>
+                    <p class="instructors">Oluşturan <a href="#">Mustafa Murat Coşkun</a>, <a href="#">Engin Demiroğ</a>
+                    </p>
+                    <div class="course-update">
+                        <span>Son güncelleme tarihi: 11/2020</span>
+                        <span>Dil: Türkçe</span>
+                    </div>
+                </div>
+            </div>
         </div>
+    </nav>
 
-        <div class="card">
-            <img src="images/img.jpg" alt="Card example image">
-
-            <div class="card-body">
-                <h3 style="color: #1976d2;">54,99 $</h3>
-                <button style="background-color: #902FD3; color: #fff;">Səbətə göndər</button>
-                <button>Qeydiyyatdan keç</button>
+    <div class="card">
+        <div class="relative">
+            <img src="images/img.jpg" alt="Course logos">
+            <div class="preview-text">Bu kursu önizle</div>
+        </div>
+        <div class="content" style="color: #292b2c;">
+            <div class="price">74,99 $</div>
+            <button class="button-primary">Sepete ekle</button>
+            <button class="button-secondary">Hemen kaydolun</button>
+            <div class="guarantee">30 Gün İçinde Para İade Garantisi</div>
+            <div class="course-content">
+                <h3>Bu kursun içeriği:</h3>
+                <ul>
+                    <li>
+                        <div style="margin-left: px;"><i class="fas fa-play-circle"></i></div> 
+                        <div style="margin-left: 20px;">98,5 saat uzunluğunda hazır video içeriği</div>
+                    </li>
+                    <li>
+                        <div style="margin-left: -3px;"><i class="fas fa-question-circle"></i></div> 
+                        <div style="margin-left: 22px;">1 pratik testi</div>
+                    </li>
+                    <li>
+                        <div><i class="fas fa-file-alt"></i></div> 
+                        <div style="margin-left: 26px;">8 makale</div>
+                    </li>
+                    <li>
+                        <div><i class="fas fa-download"></i></div> 
+                        <div style="margin-left: 21px;"> 27 indirilebilir kaynak</div>
+                    </li>
+                    <li>
+                        <div style="margin-left: 3px;"><i class="fas fa-mobile-alt"></i></div>
+                        <div style="margin-left: 25px;"> Mobil ve TV'den erişim</div>
+                    </li>
+                    <li>
+                        <div><i class="fas fa-infinity"></i></div> 
+                        <div style="margin-left: 15px;">Ömür boyu tam erişim</div>
+                    </li>
+                    <li>
+                        <div><i class="fas fa-trophy"></i></div> 
+                        <div style="margin-left: 19px;">Bitirme sertifikası</div>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer">
+                <div class="actions">
+                    <a href="#">Paylaş</a>
+                    <a href="#">Bu kursu hediye et</a>
+                    <a href="#">Kupon Uygula</a>
+                </div>
+                <div class="coupon-input">
+                    <input type="text" placeholder="Kupon Girin">
+                    <button>Uygulama</button>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="container">
+        <div class="melumat">
+            <h1>Öğrenecekleriniz</h1>
+            <ul id="content">
+                <li><i class="fas fa-check"></i>Kursu tamamladığınız zaman aranan web geliştirici olabilecek modern
+                    teknikleri ve prensipleri öğrenmiş olacaksınız.</li>
+                <li><i class="fas fa-check"></i>React, Vue ve Angular gibi frameworklerde neyi nerede yaptığınızı
+                    anlayabilmeniz için Modern JavaScript (ES6+) ve TypeScript detaylı öğreneceksiniz.</li>
+                <div id="moreContent" style="display: none;">
+                    <li><i class="fas fa-check"></i>React'ın tüm inceliklerini, Redux'ın mantığını ve yeni özelliklerden
+                        Hooks kullanmanın avantajlarını öğreneceksiniz.</li>
+                    <li><i class="fas fa-check"></i>Angular içinde Dependency Injection gibi önemli Yazılım Geliştirme
+                        Prensiplerini uygulayarak öğreneceksiniz.</li>
+                    <li><i class="fas fa-check"></i>Güçlü Backend bizi her zaman korur. Bu sebeple, sektörde kullanılan
+                        güçlü backend geliştirme tekniklerini ve prensiplerini sağlam bir şekilde öğreneceksiniz.</li>
+                    <li><i class="fas fa-check"></i>MongoDB Veritabanı Modellemeyi Öğreneceksiniz.</li>
+                    <li><i class="fas fa-check"></i>ExpressJS ile Gelişmiş Bir Back End Kodlamayı Öğreneceksiniz.</li>
+                    <li><i class="fas fa-check"></i>Kursta farklı frontend teknolojilerinde bolca kullanacağımız HTML5,
+                        CSS3, Flexbox, BootStrap detaylıca ve modern tekniklerle öğreneceksiniz..</li>
+                    <li><i class="fas fa-check"></i>Node nedir, NPM nasıl kullanılır, MongoDb sorgular ve modelleme
+                        ipuçları , ExpressJS ile StackOverFlow benzeri (toplamda 10 saat ) Modern Rest Api gibi konuları
+                        öğreneceksiniz.</li>
+                    <li><i class="fas fa-check"></i>TypeScript öğrendikten sonra Angular'ın tüm inceliklerini
+                        öğreneceksiniz.</li>
+                    <li><i class="fas fa-check"></i>VueJS ile frontend geliştirmeyi öğreneceksiniz.</li>
+                    <li><i class="fas fa-check"></i>ExpressJS Temellerini Öğreneceksiniz.</li>
+                    <li><i class="fas fa-check"></i>JWT, Authentication Konularını Öğreneceksiniz.</li>
+                </div>
+            </ul>
+            <div class="toggle" onclick="toggleContent()">Daha Fazla Göster <i class="fas fa-chevron-down"></i></div>
+        </div>
+
         <div class="accordions">
-            <!-- Accordion 1 -->
-            <div class="accordion">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <span>HTML ilə Tanışlıq</span>
-                    <i class="fas fa-chevron-right accordion-icon"></i>
+            <div class="header">Kurs İçeriği</div>
+            <div class="subheader">109 bölüm • 696 ders • 98 sa 16 dak toplam uzunluk <span class="expand-all"
+                    onclick="toggleAllSections()">Tüm bölümleri genişlet</span></div>
+
+            <div class="course-section">
+                <div class="course-section-header" onclick="toggleSection(this)">
+                    <span>Programlamaya Giriş</span>
+                    <span>22 ders • 1 sa 49 dak <i class="fas fa-chevron-down"></i></span>
                 </div>
-                <div class="accordion-content">
-                    <ul>
-                        <li>Dərs 1: HTML Nədir?</li>
-                        <li>Dərs 2: HTML Elementləri</li>
-                        <li>Dərs 3: HTML Struktur</li>
-                    </ul>
-                    <a href="imtahan1.html" class="exam-btn">İmtahan</a>
+                <div class="course-section-content">
+                    <div class="lesson"><span>Ders 1: Giriş</span><span>5 dak</span></div>
+                    <div class="lesson"><span>Ders 2: Değişkenler</span><span>10 dak</span></div>
+                    <div class="lesson"><span>Ders 3: Döngüler</span><span>15 dak</span></div>
+                    <!-- Add other lessons as needed -->
                 </div>
             </div>
 
-            <!-- Accordion 2 -->
-            <div class="accordion">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <span>CSS ilə Dizayn</span>
-                    <i class="fas fa-chevron-right accordion-icon"></i>
+            <div class="course-section">
+                <div class="course-section-header" onclick="toggleSection(this)">
+                    <span>Kurulum</span>
+                    <span>1 ders • 5 dak <i class="fas fa-chevron-down"></i></span>
                 </div>
-                <div class="accordion-content">
-                    <ul>
-                        <li>Dərs 1: CSS Nədir?</li>
-                        <li>Dərs 2: CSS Seçiciləri</li>
-                        <li>Dərs 3: CSS Layout</li>
-                    </ul>
-                    <a href="imtahan2.html" class="exam-btn">İmtahan</a>
+                <div class="course-section-content">
+                    <div class="lesson"><span>Ders 1: Kurulum</span><span>5 dak</span></div>
                 </div>
             </div>
 
-            <!-- Accordion 3 -->
-            <div class="accordion">
-                <div class="accordion-header" onclick="toggleAccordion(this)">
-                    <span>JavaScript ilə İnteraktivlik</span>
-                    <i class="fas fa-chevron-right accordion-icon"></i>
+            <div class="course-section">
+                <div class="course-section-header" onclick="toggleSection(this)">
+                    <span>İnternet , WWW ve Web Uygulamaları</span>
+                    <span>3 ders • 22 dak <i class="fas fa-chevron-down"></i></span>
                 </div>
-                <div class="accordion-content">
-                    <ul>
-                        <li>Dərs 1: JavaScript Nədir?</li>
-                        <li>Dərs 2: JavaScript Dəyişənləri</li>
-                        <li>Dərs 3: JavaScript Funksiyaları</li>
-                    </ul>
-                    <a href="imtahan3.html" class="exam-btn">İmtahan</a>
+                <div class="course-section-content">
+                    <div class="lesson"><span>Ders 1: İnternet Nedir?</span><span>7 dak</span></div>
+                    <div class="lesson"><span>Ders 2: WWW Nedir?</span><span>8 dak</span></div>
+                    <div class="lesson"><span>Ders 3: Web Uygulamaları</span><span>7 dak</span></div>
                 </div>
             </div>
+
+            <div class="course-section">
+                <div class="course-section-header" onclick="toggleSection(this)">
+                    <span>HTML5</span>
+                    <span>12 ders • 55 dak <i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="course-section-content">
+                    <div class="lesson"><span>Ders 1: HTML Giriş</span><span>5 dak</span></div>
+                    <div class="lesson"><span>Ders 2: Etiketler</span><span>10 dak</span></div>
+                    <div class="lesson"><span>Ders 3: Formlar</span><span>15 dak</span></div>
+                    <!-- Add other lessons as needed -->
+                </div>
+            </div>
+
+            <div class="course-section">
+                <div class="course-section-header" onclick="toggleSection(this)">
+                    <span>İleri Seviye HTML5</span>
+                    <span>6 ders • 51 dak <i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="course-section-content">
+                    <div class="lesson"><span>Ders 1: Canvas</span><span>10 dak</span></div>
+                    <div class="lesson"><span>Ders 2: SVG</span><span>10 dak</span></div>
+                    <div class="lesson"><span>Ders 3: Web Storage</span><span>10 dak</span></div>
+                    <!-- Add other lessons as needed -->
+                </div>
+            </div>
+
+            <div class="course-section">
+                <div class="course-section-header" onclick="toggleSection(this)">
+                    <span>Temel Seviye CSS3</span>
+                    <span>8 ders • 1 sa 17 dak <i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="course-section-content">
+                    <div class="lesson"><span>Ders 1: CSS Giriş</span><span>10 dak</span></div>
+                    <div class="lesson"><span>Ders 2: Seçiciler</span><span>15 dak</span></div>
+                    <div class="lesson"><span>Ders 3: Kutu Modeli</span><span>20 dak</span></div>
+                    <!-- Add other lessons as needed -->
+                </div>
+            </div>
+
+            <div class="course-section">
+                <div class="course-section-header" onclick="toggleSection(this)">
+                    <span>Orta Seviye CSS3</span>
+                    <span>6 ders • 46 dak <i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="course-section-content">
+                    <div class="lesson"><span>Ders 1: Flexbox</span><span>10 dak</span></div>
+                    <div class="lesson"><span>Ders 2: Grid</span><span>15 dak</span></div>
+                    <div class="lesson"><span>Ders 3: Animasyonlar</span><span>21 dak</span></div>
+                    <!-- Add other lessons as needed -->
+                </div>
+            </div>
+
+            <div class="course-section">
+                <div class="course-section-header" onclick="toggleSection(this)">
+                    <span>İleri Seviye CSS3</span>
+                    <span>9 ders • 1 sa 28 dak <i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="course-section-content">
+                    <div class="lesson"><span>Ders 1: Sass</span><span>10 dak</span></div>
+                    <div class="lesson"><span>Ders 2: Less</span><span>10 dak</span></div>
+                    <div class="lesson"><span>Ders 3: PostCSS</span><span>15 dak</span></div>
+                    <!-- Add other lessons as needed -->
+                </div>
+            </div>
+
+            <div class="box" onclick="toggleAccordion()">
+                <span>99 bölüm daha</span>
+            </div>
+           
         </div>
     </div>
-    <script>
-        function toggleAccordion(header) {
-            const content = header.nextElementSibling;
-            const icon = header.querySelector('.accordion-icon');
 
-            if (content.style.display === "block") {
-                content.style.display = "none";
-                icon.classList.remove('rotate');
+
+
+
+
+    <script>
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('i');
+            content.style.display = content.style.display === 'none' || content.style.display === '' ? 'block' : 'none';
+            icon.classList.toggle('fa-chevron-down');
+            icon.classList.toggle('fa-chevron-up');
+        }
+
+        function toggleAllSections() {
+            const sections = document.querySelectorAll('.course-section-content');
+            const expandAllButton = document.querySelector('.expand-all');
+            const isExpanded = expandAllButton.textContent === 'Tüm bölümleri genişlet';
+
+            sections.forEach(section => {
+                section.style.display = isExpanded ? 'block' : 'none';
+                const icon = section.previousElementSibling.querySelector('i');
+                if (isExpanded) {
+                    icon.classList.remove('fa-chevron-down');
+                    icon.classList.add('fa-chevron-up');
+                } else {
+                    icon.classList.remove('fa-chevron-up');
+                    icon.classList.add('fa-chevron-down');
+                }
+            });
+
+            expandAllButton.textContent = isExpanded ? 'Tüm bölümleri daralt' : 'Tüm bölümleri genişlet';
+        }
+        document.querySelector('.expand-all').addEventListener('click', () => {
+            document.querySelectorAll('.accordion-content').forEach(content => {
+                content.style.display = 'block';
+            });
+            document.querySelectorAll('.sub-accordion-content').forEach(content => {
+                content.style.display = 'block';
+            });
+        });
+        
+
+        function toggleContent() {
+            var moreContent = document.getElementById('moreContent');
+            var toggle = document.querySelector('.toggle');
+            if (moreContent.style.display === 'none') {
+                moreContent.style.display = 'block';
+                toggle.innerHTML = 'Gizle <i class="fas fa-chevron-up"></i>';
             } else {
-                content.style.display = "block";
-                icon.classList.add('rotate');
+                moreContent.style.display = 'none';
+                toggle.innerHTML = 'Daha Fazla Göster <i class="fas fa-chevron-down"></i>';
             }
         }
     </script>
-
 </body>
 
 </html>

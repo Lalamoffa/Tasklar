@@ -1,0 +1,430 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+}
+
+.navbar {
+    display: flex;
+    position: relative;
+    background-color: #292b2c;
+    color: white;
+    padding: 50px;
+}
+
+.breadcrumbs {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #ccc;
+    margin-left: 20px;
+}
+
+.breadcrumbs a {
+    text-decoration: none;
+    color: #ccc;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.course-header h1 {
+    font-size: 26px;
+    color: #fff;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #ddd;
+    margin-bottom: 10px;
+}
+
+.course-info {
+    font-size: 14px;
+    color: #ccc;
+}
+
+.rating {
+    color: #ffcc00;
+}
+
+.rating .stars {
+    color: #ffcc00;
+}
+
+.rating a {
+    color: #ffcc00;
+    text-decoration: none;
+}
+
+.rating a:hover {
+    text-decoration: underline;
+}
+
+.course-header {
+    margin-left: 20px;
+}
+
+.course-info {
+    margin-left: 20px;
+}
+
+.course-info span {
+    margin-right: 20px;
+}
+
+.instructors {
+    color: #ccc;
+    margin: 10px 0;
+}
+
+.instructors a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.instructors a:hover {
+    text-decoration: underline;
+}
+
+.course-update span {
+    display: inline-block;
+    margin-right: 20px;
+    color: #ddd;
+}
+
+.course-update span:last-child {
+    color: #ddd;
+}
+
+
+.card {
+    position: absolute;
+    right: 100px;
+    top: 5px;
+    z-index: 9999;
+    width: 350px;
+    margin: 20px auto;
+    padding: 15px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.card content {
+    display: flex;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 5px;
+}
+
+.relative {
+    position: relative;
+    text-align: center;
+}
+
+.preview-text {
+    width: 150px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: medium;
+}
+
+.price {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: center;
+}
+
+.button-primary,
+.button-secondary {
+    width: 100%;
+    margin: 5px 0;
+    font-size: 1em;
+}
+
+.button-secondary {
+    background: #ccc;
+}
+
+.guarantee {
+    font-size: 0.9em;
+    color: #666;
+    text-align: center;
+    margin: 15px 0;
+}
+
+.course-content h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.course-content ul {
+    padding-left: 20px;
+}
+
+.course-content li {
+    margin-bottom: 15px;
+    font-size: 0.9em;
+}
+
+.course-content li i {
+    color: #37393a;
+    font-size: 300;
+}
+
+.footer {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.actions {
+    display: flex;
+}
+
+.actions a {
+    background-size: 0;
+    margin: 0 5px;
+    cursor: pointer;
+    color: #161515;
+    font-size: 1.0em;
+    font-weight: 600;
+
+}
+
+.coupon-input {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.coupon-input input {
+    width: 60%;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.coupon-input button {
+    padding: 5px 10px;
+    border-radius: 3px;
+}
+
+.container {
+    margin-left: 50px;
+}
+
+.melumat,
+.accordions {
+    border: 1px solid #ddd;
+    margin-top: 50px;
+    padding: 30px;
+    font-family: Caveat , sans-serif;
+    font-size: 25px;
+}
+
+.accordions .header{
+    font-size: 50px;
+}
+.accordions .subheader{
+    font-size: 25px;
+}
+.accordions span{
+    font-size: 25px;
+}
+.course-section span{
+    font-size: 25px;
+}
+.melumat h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    margin-bottom: 30px;
+    display: flex;
+    align-items: flex-start;
+}
+
+ul li i {
+    color: #4CAF50;
+    margin-right: 10px;
+}
+
+.toggle {
+    color: #6a1b9a;
+    cursor: pointer;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.course-info {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.expand-all {
+    color: #5624d0;
+    font-size: 14px;
+    float: right;
+    cursor: pointer;
+}
+
+.header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.subheader {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 20px;
+}
+.expand-all {
+    color: #4a00e0;
+    font-size: 14px;
+    float: right;
+    cursor: pointer;
+}
+.course-section {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.course-section-header {
+    background-color: #f0ecec;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.course-section-header i {
+    margin-left: 10px;
+}
+.course-section-content {
+    display: none;
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+}
+.lesson {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+.box {
+    border: 1px solid #000;
+    width: 100%;
+    text-align: center;
+    padding: 10px;
+}
+
+.box:hover {
+    background-color: #f0ecec;
+}
+
+.box span {
+    font-weight: bold;
+
+}
+.accordion-content {
+    display: none;
+    width: 80%;
+    border: 1px solid #000;
+    border-top: none;
+    padding: 10px;
+    text-align: left;
+}
+
+
+.modal {
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 500px;
+    padding: 20px;
+    text-align: center;
+    display: none;
+    position: fixed;
+    z-index: 9999;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.modal-header h2 {
+    font-size: 18px;
+    margin: 0;
+}
+.modal-header .close {
+    font-size: 20px;
+    cursor: pointer;
+}
+.modal-content {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.modal-content input {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    font-size: 14px;
+}
+.modal-content button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #333;
+    color: white;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    font-size: 14px;
+}
+.modal-footer {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.modal-footer i {
+    font-size: 24px;
+    cursor: pointer;
+}

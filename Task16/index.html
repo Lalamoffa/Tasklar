@@ -231,7 +231,116 @@
             margin-top: 10px;
         }
 
-    
+        /* responsivlik*/
+        /* Desktop - Böyük ekranlar üçün (Laptoplar, Böyük monitorlar) */
+        @media (min-width: 1024px) {
+            .courses {
+                display: grid;
+                grid-template-columns: repeat(8, 1fr);
+                /* Dörd sütun */
+                gap: 20px;
+            }
+
+            .course-card {
+                width: 300px;
+            }
+
+            .search-bar input {
+                width: 450px;
+                /* Axtarış inputunun eni */
+            }
+
+            .navbar {
+                width: 100%;
+            }
+
+        }
+
+        /* Tablet - Orta ölçülü ekranlar üçün (Tabletlər) */
+        @media (min-width: 768px) and (max-width: 1023px) {
+            .courses {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                /* İki sütun */
+                gap: 15px;
+            }
+
+            .course-card {
+                width: 90%;
+                margin: auto;
+            }
+
+            .search-bar input {
+                width: 350px;
+                /* Axtarış inputunun eni azaldıldı */
+            }
+
+            .navbar .logo {
+                width: 100%;
+            }
+        }
+
+        /* Mobil - Kiçik ekranlar üçün (Telefonlar) */
+        @media (max-width: 767px) {
+            .courses {
+                display: grid;
+                grid-template-columns: 1fr;
+                /* Hər sırada bir kart */
+                gap: 10px;
+            }
+
+
+            .course-card {
+                width: 65%;
+                margin: auto;
+                margin-top: 10px;
+            }
+
+
+            .search-bar input {
+                display: none;
+                /* Tam genişlikdə axtarış inputu */
+            }
+
+            /* Navbar üçün stil */
+            .navbar {
+                padding: 10px;
+                background-color: #f8f8f8;
+            }
+
+            .navbar i {
+                display: none;
+            }
+
+            .navbar .logo {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+
+            .nav-links {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 100%;
+                padding: 0;
+            }
+
+            .nav-links li {
+                margin: 10px 0;
+                list-style: none;
+            }
+
+
+            .auth-buttons {
+                margin-top: 10px;
+                width: 50%;
+            }
+
+            .auth-buttons button {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
     </style>
 
 
@@ -243,12 +352,11 @@
 
 <body>
 
-
     <!-- Naviqasiya Barı -->
     <div class="navbar">
         <!-- Loqo -->
-        <div class="logo">
-            <img src="images/logo-udemy.svg" alt=" Loqo">
+        <div class="logo" onclick="location.href='index.html';">
+            <img src="images/logo-udemy.svg" alt="Loqo">
         </div>
 
         <!-- Axtarış barı -->
@@ -263,42 +371,30 @@
                 <i class="fas fa-shopping-cart"></i>
             </div>
             <!-- Dil seçimi iconu -->
-
-            <div class="dropdown lang-icon" onclick="toggleDropdown()">
+            <div class="lang-icon" onclick="openModal()">
                 <i class="fas fa-globe"></i>
-                <div class="dropdown-content">
-                    <ul>
-                        <li>English</li>
-                        <li>Русский</li>
-                        <li>Türkçe</li>
-                    </ul>
-                </div>
             </div>
-
-            <!-- Daxil ol-->
+            <!-- Daxil ol -->
             <div class="auth-buttons">
                 <button class="btn-small login-btn" onclick="location.href='login&register.html';">
                     <i class="fas fa-sign-in-alt"></i> Daxil ol
                 </button>
             </div>
         </div>
+    </div>
 
-
-        <!-- Sebet modalı -->
-        <div id="cartModal" class="modal">
-            <div class="cart-modal-content">
-                <span class="close-btn" onclick="closeCartModal()">✖</span>
-                <h3>Sebet</h3>
-                <ul>
-                    <li>Mal 1</li>
-                    <li>Mal 2</li>
-                    <li>Mal 3</li>
-                    <li><strong>Ümumi: 100 AZN</strong></li>
-                </ul>
-            </div>
+    <!-- Sebet modalı -->
+    <div id="cartModal" class="modal">
+        <div class="cart-modal-content">
+            <span class="close-btn" onclick="closeCartModal()">✖</span>
+            <h3>Sebet</h3>
+            <ul>
+                <li>Mal 1</li>
+                <li>Mal 2</li>
+                <li>Mal 3</li>
+                <li><strong>Ümumi: 100 AZN</strong></li>
+            </ul>
         </div>
-
-
     </div>
 
     <h2 style="text-align: center;">Kurslar</h2>
