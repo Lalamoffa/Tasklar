@@ -39,59 +39,55 @@
         </div>
     </nav>
 
-    <div class="card">
-        <div class="relative">
-            <img src="images/img.jpg" alt="Course logos">
-            <div class="preview-text">Bu kursu önizle</div>
+    <div class="course-card card">
+        <div>
+            <img src="images/img.jpg" alt="">
         </div>
-        <div class="content" style="color: #292b2c;">
-            <div class="price">74,99 $</div>
-            <button class="button-primary">Sepete ekle</button>
-            <button class="button-secondary">Hemen kaydolun</button>
-            <div class="guarantee">30 Gün İçinde Para İade Garantisi</div>
-            <div class="course-content">
-                <h3>Bu kursun içeriği:</h3>
-                <ul>
-                    <li>
-                        <div style="margin-left: px;"><i class="fas fa-play-circle"></i></div> 
-                        <div style="margin-left: 20px;">98,5 saat uzunluğunda hazır video içeriği</div>
-                    </li>
-                    <li>
-                        <div style="margin-left: -3px;"><i class="fas fa-question-circle"></i></div> 
-                        <div style="margin-left: 22px;">1 pratik testi</div>
-                    </li>
-                    <li>
-                        <div><i class="fas fa-file-alt"></i></div> 
-                        <div style="margin-left: 26px;">8 makale</div>
-                    </li>
-                    <li>
-                        <div><i class="fas fa-download"></i></div> 
-                        <div style="margin-left: 21px;"> 27 indirilebilir kaynak</div>
-                    </li>
-                    <li>
-                        <div style="margin-left: 3px;"><i class="fas fa-mobile-alt"></i></div>
-                        <div style="margin-left: 25px;"> Mobil ve TV'den erişim</div>
-                    </li>
-                    <li>
-                        <div><i class="fas fa-infinity"></i></div> 
-                        <div style="margin-left: 15px;">Ömür boyu tam erişim</div>
-                    </li>
-                    <li>
-                        <div><i class="fas fa-trophy"></i></div> 
-                        <div style="margin-left: 19px;">Bitirme sertifikası</div>
-                    </li>
-                </ul>
+        <div class="price">74,99 $</div>
+        <button class="btn-block button-purple">Sepete ekle</button>
+        <button class="btn-block btn-secondary" style="margin-top: 15px;">Hemen kaydolun</button>
+        <p class="text-center" style="margin-top: 15px;"><small>30 Gün İçinde Para İade Garantisi</small></p>
+        <div class="course-features">
+            <h4 style="margin-bottom: 10px;">Bu kursun içeriği:</h4>
+            <div class="feature">
+                <span class="feature-icon">🕒</span>
+                <span>58,5 saat uzunluğunda hazır video içeriği</span>
             </div>
-            <div class="footer">
-                <div class="actions">
-                    <a href="#">Paylaş</a>
-                    <a href="#">Bu kursu hediye et</a>
-                    <a href="#">Kupon Uygula</a>
-                </div>
-                <div class="coupon-input">
-                    <input type="text" placeholder="Kupon Girin">
-                    <button>Uygulama</button>
-                </div>
+            <div class="feature">
+                <span class="feature-icon">📝</span>
+                <span>1 pratik testi</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📄</span>
+                <span>5 makale</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📁</span>
+                <span>27 indirilebilir kaynak</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">📱</span>
+                <span>Mobil ve TV'den erişim</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🔄</span>
+                <span>Ömür boyu tam erişim</span>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🏆</span>
+                <span>Bitirme sertifikası</span>
+            </div>
+        </div>
+        <hr>
+        <div class="row ">
+            <div class="col-6 col">Paylaş</div>
+            <div class="col-6 col ">Bu kursu hediye et</div>
+        </div>
+        <hr>
+        <h4>Kupon uygula</h4>
+        <div >
+                <input type="text" placeholder="Kupon Girin" style="margin-top: 10px;">
+                <button class="btn-block" style="margin-top: 10px;">Uygulama</button>
             </div>
         </div>
     </div>
@@ -236,7 +232,7 @@
             <div class="box" onclick="toggleAccordion()">
                 <span>99 bölüm daha</span>
             </div>
-           
+
         </div>
     </div>
 
@@ -280,7 +276,7 @@
                 content.style.display = 'block';
             });
         });
-        
+
 
         function toggleContent() {
             var moreContent = document.getElementById('moreContent');

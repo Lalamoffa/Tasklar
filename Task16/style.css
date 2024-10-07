@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Caveat&display=swap");
+
 * {
   margin: 0;
   padding: 0;
@@ -104,136 +105,16 @@ body {
   color: #ddd;
 }
 
-.card {
-  position: absolute;
-  right: 100px;
-  top: 5px;
-  z-index: 9999;
-  width: 350px;
-  margin: 20px auto;
-  padding: 15px;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 5px;
-}
-
-.card content {
-  display: flex;
-}
-
-.card img {
-  width: 100%;
-  border-radius: 5px;
-}
-
-.relative {
-  position: relative;
-  text-align: center;
-}
-
-.preview-text {
-  width: 150px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  padding: 10px;
-  border-radius: 5px;
-  font-weight: bold;
-  font-size: medium;
-}
-
-.price {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin: 10px 0;
-  text-align: center;
-}
-
-.button-primary,
-.button-secondary {
-  width: 100%;
-  margin: 5px 0;
-  font-size: 1em;
-}
-
-.button-secondary {
-  background: #ccc;
-}
-
-.guarantee {
-  font-size: 0.9em;
-  color: #666;
-  text-align: center;
-  margin: 15px 0;
-}
-
-.course-content h3 {
-  font-size: 1.2em;
-  margin-bottom: 10px;
-}
-
-.course-content ul {
-  padding-left: 20px;
-}
-
-.course-content li {
-  margin-bottom: 15px;
-  font-size: 0.9em;
-}
-
-.course-content li i {
-  color: #37393a;
-  font-size: 300;
-}
-
-.footer {
-  margin-top: 20px;
-  text-align: center;
-}
-
-.actions {
-  display: flex;
-}
-
-.actions a {
-  background-size: 0;
-  margin: 0 5px;
-  cursor: pointer;
-  color: #161515;
-  font-size: 1em;
-  font-weight: 600;
-}
-
-.coupon-input {
-  margin-top: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-}
-
-.coupon-input input {
-  width: 60%;
-  padding: 5px;
-  border: 1px solid #ddd;
-  border-radius: 3px;
-}
-
-.coupon-input button {
-  padding: 5px 10px;
-  border-radius: 3px;
-}
-
 .container {
   margin-left: 50px;
 }
 
+
 .melumat,
 .accordions {
-  border: 1px solid #ddd;
+  width: 770px;
+  margin-left: 60px;
+  border: 2px solid #ddd;
   margin-top: 50px;
   padding: 30px;
   font-family: Caveat, sans-serif;
@@ -379,6 +260,7 @@ h1 {
   text-align: left;
 }
 
+/* Modal start*/
 .modal {
   background-color: white;
   border-radius: 5px;
@@ -441,4 +323,44 @@ h1 {
 .modal-footer i {
   font-size: 24px;
   cursor: pointer;
-}/*# sourceMappingURL=style.css.map */
+}
+/*modal end*/
+
+/*Card start*/
+.course-card {
+  background-color: #fff;
+  position: absolute;
+  top: 5px;
+  right: 55px;
+  z-index: 999;
+  width: 340px;
+  margin: 20px auto;
+  padding: 20px;
+}
+
+.price {
+  font-size: 2em;
+  font-weight: bold;
+  margin: 20px 0;
+}
+
+.button-purple {
+  background-color: #9b4dca;
+  border-color: #9b4dca;
+}
+
+.course-features {
+  margin-top: 20px;
+}
+
+.feature {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.feature-icon {
+  margin-right: 10px;
+}
+
+/*Cart end*/
