@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axtarış Inputu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+
+        .input-container {
+            position: relative;
+            display: flex;
+            width: 300px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 2px solid #3498db;
+            border-radius: 5px 0 0 5px;
+            outline: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        input[type="text"]:focus {
+            border-color: #2980b9;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="input-container">
+        <input type="text" class="myInput"  id="searchInput" value="Axtarış üçün yazın...">
+        <button id="searchButton">Axtar</button>
+    </div>
+
+    <script>
+
+        document.querySelector(".myInput").addEventListener("click", function () {
+            this.select();
+        });
+        // Axtarış düyməsini tapırıq
+        const searchButton = document.getElementById("searchButton");
+
+        // Inputda klaviaturaya qulaq asırıq
+        document.getElementById("searchInput").addEventListener("keydown", function (event) {
+            // Əgər basılan düymə "Enter"-dirsə
+            if (event.key === "Enter") {
+                // Axtarış düyməsini klikləyirik
+                searchButton.click();
+            }
+        });
+
+        // Axtarış düyməsinə kliklənəndə olan hadisə
+        searchButton.addEventListener("click", function () {
+            alert("Axtarış yerinə yetirilir: " + document.getElementById("searchInput").value);
+        });
+
+    </script>
+</body>
+
+</html>
