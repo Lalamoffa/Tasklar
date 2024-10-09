@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Əlaqə Səhifəsi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        input,
+        textarea {
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #008cba;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #005f7f;
+        }
+
+        .map-container {
+            margin-top: 40px;
+        }
+
+        .map-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        /* Xəritənin altındakı boşluq */
+        iframe {
+            border-radius: 8px;
+            border: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Bizimlə Əlaqə</h1>
+
+        <form id="contactForm">
+            <label for="name">Adınız:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Emailiniz:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="message">Mesajınız:</label>
+            <textarea id="message" name="message" required></textarea>
+
+            <button type="submit">Göndər</button>
+        </form>
+
+        <!-- Xəritə -->
+        <div class="map-container">
+            <h2>Bizim ünvan:</h2>
+            <!-- Google Maps iframe -->
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3038.7841955136075!2d49.83562207512606!3d40.379636278222655!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x403063d7c7efbf35%3A0x4a9b50c12f089bdb!2sBaku%20White%20City%20Office%20Building!5e0!3m2!1sen!2saz!4v1696843649708!5m2!1sen!2saz"
+                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modal Nümunəsi</title>
+    <style>
+        /* Modal düyməsi */
+        .modal-btn {
+            background-color: #008cba;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .modal-btn:hover {
+            background-color: #005f7f;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            width: 400px;
+            max-width: 80%;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-family: Arial, sans-serif;
+        }
+
+        input,
+        textarea {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        textarea {
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: #008cba;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .submit-btn:hover {
+            background-color: #005f7f;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Modalı açmaq üçün düymə -->
+    <button id="modalBtn" class="modal-btn">Modalı aç</button>
+
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Form Başlığı</h2>
+            <form>
+                <label for="name">Adınız:</label>
+                <input type="text" id="name" name="name" required>
+
+                <label for="email">Emailiniz:</label>
+                <input type="email" id="email" name="email" required>
+
+                <label for="message">Mesajınız:</label>
+                <textarea id="message" name="message" required></textarea>
+
+                <button type="submit" class="submit-btn">Göndər</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal elementlərini tap
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("modalBtn");
+        var span = document.getElementsByClassName("close")[0];
+        var firstInput = document.getElementById("name");
+
+        // Modalı aç
+        btn.onclick = function () {
+            modal.style.display = "flex";
+            firstInput.focus(); // İlk inputa fokuslan
+        }
+
+        // Modalı bağla
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // Modalın kənarına klik edəndə bağlanma
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    </script>
+</body>
+
+</html>

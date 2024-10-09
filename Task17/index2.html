@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Axtarış</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        #userList {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #userList li {
+            padding: 10px;
+            border: 1px solid #ddd;
+            margin-bottom: 5px;
+            border-radius: 5px;
+        }
+
+        /* Axtarılan hərfi sarı rəngdə vurğulamaq üçün */
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>İstifadəçi Axtarışı</h1>
+
+    <!-- Axtarış inputu -->
+    <input type="text" id="searchInput" placeholder="İstifadəçi axtar...">
+
+    <!-- İstifadəçilər siyahısı -->
+    <ul id="userList">
+        <li>Ali Həsənov</li>
+        <li>Zeynəb Məmmədova</li>
+        <li>Nicat Əliyev</li>
+        <li>Elvin Quliyev</li>
+        <li>Günel İsmayılova</li>
+        <li>Orxan Kərimov</li>
+        <li>Aytac Qasımova</li>
+        <li>Ramil Qurbanov</li>
+        <li>Kamran Babayev</li>
+        <li>Şahin Abbasov</li>
+    </ul>
+
+    <script>
+        // Axtarış inputunu tap
+        var searchInput = document.getElementById("searchInput");
+
+        // İstifadəçilərin siyahısını tap
+        var userList = document.getElementById("userList");
+        var users = userList.getElementsByTagName("li");
+
+        // Axtarış inputuna hərf daxil edildikdə tetiklenir
+        searchInput.addEventListener("input", function () {
+            var searchTerm = searchInput.value.toLowerCase();
+
+            // Hər bir istifadəçi üçün yoxlama
+            for (var i = 0; i < users.length; i++) {
+                var user = users[i];
+                var userName = user.textContent.toLowerCase();
+
+                // Bütün highlight span'larını təmizləyirik
+                user.innerHTML = user.textContent;
+
+                // Əgər axtarılan term istifadəçi adında varsa
+                if (userName.includes(searchTerm) && searchTerm !== "") {
+                    var regex = new RegExp(searchTerm, "gi");
+                    user.innerHTML = user.textContent.replace(regex, function (match) {
+                        return '<span class="highlight">' + match + '</span>';
+                    });
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>
