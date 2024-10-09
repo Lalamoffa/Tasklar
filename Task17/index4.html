@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonsuz Kaydırma ilə İstifadəçilər</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        #user-list {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .user-item {
+            background-color: #e0e0e0;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        #loader {
+            text-align: center;
+            font-size: 18px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>İstifadəçilər Siyahısı</h1>
+    <div id="user-list">
+        <!-- İstifadəçilər burada göstəriləcək -->
+    </div>
+    <div id="loader" style="display: none;">Yüklənir...</div>
+
+    <script>
+        // Random ad və soyad yaratmaq üçün massivlər
+        const adlar = ["Aydın", "Zaur", "Leyla", "Elvin", "Fidan", "Orxan", "Aysel", "Murad", "Ramil", "Turan", "Vüsal", "Şahin", "Lalə", "Kamran", "Elnur", "Aygün", "İlqar", "Günel", "Zaur", "İbrahim"];
+        const soyadlar = ["Məmmədov", "Hüseynov", "Əliyeva", "Rzayev", "Quliyeva", "İsmayılov", "Əliyeva", "Cəfərli", "Əsədov", "Şahverdiyev", "Səfərov", "Xəlilov", "Baxışova", "Həsənov", "Qasımova", "İbrahimov", "Abdullayev", "İsmayılov", "Əliyev", "Hüseynli"];
+
+        let users = [];
+        let currentIndex = 0;
+        const initialUsersCount = 15; // İlk olaraq 15 istifadəçi yaradılır
+        const usersPerPage = 15; // Hər dəfə 15 istifadəçi əlavə olunur
+        let userList = document.getElementById("user-list");
+        let loader = document.getElementById("loader");
+
+        // İlk 15 istifadəçini yaradıb göstər
+        generateRandomUsers(initialUsersCount); // İlk 15 random istifadəçi yaradılır
+        loadMoreUsers(); // İlk 15 istifadəçini yüklə
+
+        // Saytın aşağısına yaxınlaşdıqda yeni istifadəçiləri yüklə
+        window.addEventListener("scroll", () => {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 100) {
+                loadMoreUsers();
+            }
+        });
+
+        function loadMoreUsers() {
+            loader.style.display = "block"; // Yüklənir göstəricisini göstər
+
+            setTimeout(() => {
+                // İndexə görə istifadəçiləri əlavə edir
+                for (let i = currentIndex; i < currentIndex + usersPerPage && i < users.length; i++) {
+                    let userItem = document.createElement("div");
+                    userItem.className = "user-item";
+                    userItem.textContent = `${users[i].ad} ${users[i].soyad}`;
+                    userList.appendChild(userItem);
+                }
+
+                currentIndex += usersPerPage; // Göstərilən istifadəçi sayını yenilə
+
+                loader.style.display = "none"; // Yüklənir göstəricisini gizlət
+
+                // Əgər yüklənəcək daha çox istifadəçi yoxdursa, yenisini yarat
+                if (currentIndex >= users.length) {
+                    generateRandomUsers(usersPerPage); // Yeni 10 istifadəçi yaradılır
+                }
+            }, 1000); // Simulyasiya olaraq 1 saniyəlik gecikmə
+        }
+
+        function generateRandomUsers(count) {
+            for (let i = 0; i < count; i++) {
+                let randomAd = adlar[Math.floor(Math.random() * adlar.length)];
+                let randomSoyad = soyadlar[Math.floor(Math.random() * soyadlar.length)];
+                users.push({ ad: randomAd, soyad: randomSoyad });
+            }
+        }
+
+    </script>
+</body>
+
+</html>
