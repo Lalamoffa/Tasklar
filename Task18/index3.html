@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo İdarəetmə Sistemi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        form input {
+            width: 80%;
+            padding: 10px;
+        }
+
+        form button {
+            padding: 10px 20px;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding: 10px;
+            background: #eee;
+            margin: 5px 0;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        ul li button {
+            background-color: red;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Tapşırıq Siyahısı</h1>
+
+        <!-- Yeni tapşırıq əlavə etmək üçün form -->
+        <form id="todoForm">
+            <input type="text" id="todoInput" placeholder="Yeni tapşırıq daxil edin..." required />
+            <button type="submit">Əlavə et</button>
+        </form>
+
+        <!-- Tapşırıqların siyahısı -->
+        <ul id="todoList">
+            <li>Tapşırıqlar yüklənir...</li>
+        </ul>
+    </div>
+
+    <!-- JavaScript faylını daxil edirik -->
+    <script>
+        // API URL-sini dəyişkən kimi saxlayırıq
+        const API_URL = 'https://jsonplaceholder.typicode.com/todos?_limit=5';
+        const API_BASE_URL = 'https://jsonplaceholder.typicode.com/todos';
+
+        // HTML elementlərini əldə edirik
+        const todoList = document.getElementById('todoList');
+        const todoForm = document.getElementById('todoForm');
+        const todoInput = document.getElementById('todoInput');
+
+        // Səhifə yüklənəndə mövcud tapşırıqları yükləyirik
+        document.addEventListener('DOMContentLoaded', fetchTodos);
+
+        // Yeni tapşırıq əlavə etmək üçün formu dinləyirik
+        todoForm.addEventListener('submit', addTodo);
+
+        // 1. Mövcud tapşırıqları API-dən yükləyən funksiya
+        async function fetchTodos() {
+            try {
+                // "Loading" mesajı göstəririk
+                todoList.innerHTML = '<li>Tapşırıqlar yüklənir...</li>';
+
+                // API-dən tapşırıqları yükləyirik
+                const response = await fetch(API_URL);
+
+                // JSON formatına çeviririk
+                const todos = await response.json();
+
+                // Tapşırıqları UI-da göstəririk
+                renderTodos(todos);
+            } catch (error) {
+                todoList.innerHTML = '<li>Xəta baş verdi, tapşırıqlar yüklənə bilmədi.</li>';
+                console.error('Xəta:', error);
+            }
+        }
+
+        // 2. Tapşırıqları UI-da göstərən funksiya
+        function renderTodos(todos) {
+            todoList.innerHTML = ''; // Mövcud tapşırıqları təmizləyirik
+
+            todos.forEach(todo => {
+                const li = document.createElement('li');
+                li.setAttribute('data-id', todo.id); // Hər tapşırığa id əlavə edirik
+                li.innerHTML = `
+      ${todo.title}
+      <button onclick="deleteTodo(${todo.id})">Sil</button>
+    `;
+                todoList.appendChild(li);
+            });
+        }
+
+        // 3. Yeni tapşırıq əlavə edən funksiya
+        async function addTodo(event) {
+            event.preventDefault(); // Formun yenilənməsinin qarşısını alırıq
+
+            const newTodo = {
+                title: todoInput.value,
+                completed: false,
+            };
+
+            try {
+                const response = await fetch(API_BASE_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(newTodo),
+                });
+
+                const addedTodo = await response.json();
+
+                // Yeni tapşırığı siyahıya əlavə edirik
+                renderTodos([...document.querySelectorAll('ul li')].map(li => ({
+                    title: li.textContent.trim().replace('Sil', ''),
+                    id: Math.random(),
+                })).concat(addedTodo));
+
+                // Input sahəsini təmizləyirik
+                todoInput.value = '';
+            } catch (error) {
+                console.error('Tapşırıq əlavə edilərkən xəta baş verdi:', error);
+            }
+        }
+
+        // 4. Tapşırığı API-dən silən funksiya
+        async function deleteTodo(id) {
+            try {
+                // Saxta API-dən silmə sorğusu göndəririk
+                const response = await fetch(`${API_BASE_URL}/${id}`, {
+                    method: 'DELETE',
+                });
+
+                // Sorğu müvəffəqiyyətli olubsa, UI-dan tapşırığı silirik
+                if (response.ok) {
+                    // HTML elementlərindən tapşırığı silmək
+                    const todoItem = document.querySelector(`li[data-id='${id}']`);
+                    if (todoItem) {
+                        todoItem.remove();
+                    }
+                } else {
+                    console.error('Tapşırıq silinmədi.');
+                }
+            } catch (error) {
+                console.error('Tapşırıq silinərkən xəta baş verdi:', error);
+            }
+        }
+
+    </script>
+</body>
+
+</html>
