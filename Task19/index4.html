@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Storage Nümunəsi</title>
+</head>
+
+<body>
+
+    <h1>LocalStorage İstifadəsi</h1>
+
+    <script>
+        // localStorage-a adi saxlayırıq
+        localStorage.setItem('name', 'Lala');
+
+        // LocalStorage-dan məlumat alırıq
+        const storedName = localStorage.getItem('name');
+        console.log('Saxlanılan ad: ' + storedName); // 'Lala'
+
+        // LocalStorage-dan məlumatı silirik
+        localStorage.removeItem('name');
+
+        // Bütün localStorage məlumatlarını təmizləyirik
+        localStorage.clear();
+    </script>
+
+</body>
+
+</html>

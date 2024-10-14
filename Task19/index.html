@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Günün Hesablayıcısı</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        input[type="date"] {
+            padding: 10px;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Günün Hesablayıcısı</h1>
+        <label for="dateInput">Tarixi seçin:</label>
+        <input type="date" id="dateInput">
+        <br>
+        <button onclick="hesablaGun()">Günü Hesabla</button>
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function hesablaGun() {
+            // Tarixi al
+            const dateInput = document.getElementById("dateInput").value;
+
+            if (!dateInput) {
+                document.getElementById("result").innerHTML = "Xahiş edirik, tarixi daxil edin!";
+                return;
+            }
+
+            // Tarixi date obyektinə çevir
+            const tarix = new Date(dateInput);
+
+            // Tarixi formatla: Gün, Ay və İl
+            const gun = tarix.getDate();
+            const ay = tarix.getMonth() + 1;  // Aylar 0-dan başlayır, ona görə 1 əlavə edirik
+            const il = tarix.getFullYear();
+
+            // Həftənin gününü təyin et
+            const hefteninGunu = tarix.getDay(); // 0 Bazar, 1 Bazar ertəsi, ..., 6 Şənbə
+
+            // Günlərin adlarını təyin et
+            const hefteninGunleri = [
+                "Bazar",
+                "Bazar ertəsi",
+                "Çərşənbə axşamı",
+                "Çərşənbə",
+                "Cümə axşamı",
+                "Cümə",
+                "Şənbə"
+            ];
+
+            // Nəticəni göstər
+            const resultText = `Daxil edilən tarix: ${gun}.${ay}.${il}<br> Bu gün həftənin ${hefteninGunleri[hefteninGunu]} günüdür.`;
+            document.getElementById("result").innerHTML = resultText;
+        }
+    </script>
+
+</body>
+
+</html>

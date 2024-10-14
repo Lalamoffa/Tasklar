@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online/Offline Test</title>
+</head>
+
+<body>
+
+    <h1>Online və Offline Statusu</h1>
+    <p>Saytdan çıxdığınız zaman və ya internet kəsildikdə konsolda mesaj görəcəksiniz.</p>
+
+    <script>
+        // Online olduğunda konsola yazır
+        window.addEventListener('online', function () {
+            console.log('Online: Siz internetə qoşuldunuz.');
+        });
+
+        // Offline olduğunda konsola yazır
+        window.addEventListener('offline', function () {
+            console.log('Offline: Siz internet bağlantısını itirdiniz.');
+        });
+
+        // Səhifə görünməz olduqda konsola yazır
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) {
+                console.log('Offline: Səhifəni tərk etdiniz.');
+            } else {
+                console.log('Online: Səhifəyə geri döndünüz.');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

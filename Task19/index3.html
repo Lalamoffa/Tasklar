@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online/Offline Toastr Bildirişi</title>
+    <!-- jQuery əlavə edirik -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Toastr CSS əlavə edirik -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+    <!-- Stil əlavə edirik -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Online və Offline Bildirişləri</h1>
+
+    <p>Saytdan çıxdığınız zaman və ya internet kəsildikdə toastr ilə bildiriş görəcəksiniz.</p>
+
+    <!-- Toastr JS əlavə edirik -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script>
+        // Toastrın əsas parametrləri
+        toastr.options = {
+            "closeButton": true,
+            "positionClass": "toast-bottom-right", // Bildirişlər səhifənin sağ alt küncündə görünəcək
+            "timeOut": "3000" // Bildiriş 3 saniyəyə yox olacaq
+        };
+
+        // Online olduğunda toastr bildirişi
+        window.addEventListener('online', function () {
+            toastr.success('Online: Siz internetə qoşuldunuz.');
+        });
+
+        // Offline olduğunda toastr bildirişi
+        window.addEventListener('offline', function () {
+            toastr.error('Offline: Siz internet bağlantısını itirdiniz.');
+        });
+    </script>
+
+</body>
+
+</html>
