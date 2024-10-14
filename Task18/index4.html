@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şəkil və Video Slider</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .slider-container {
+            width: 80%;
+            max-width: 800px;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slide {
+            min-width: 100%;
+            transition: opacity 1s ease-in-out;
+            opacity: 0;
+            display: none;
+        }
+
+        .slide.active {
+            display: block;
+            opacity: 1;
+        }
+
+        img,
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+        }
+
+        .prev,
+        .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            font-size: 24px;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .prev {
+            left: 10px;
+            border-radius: 20px;
+            margin: 0 50px;
+
+        }
+
+        .next {
+            right: 10px;
+            border-radius: 20px;
+            margin: 0 50px;
+
+        }
+
+        .dots {
+            position: absolute;
+            text-align: center;
+            margin-top: 45%;
+
+        }
+
+        .dot {
+            height: 15px;
+            width: 15px;
+            margin: 0 5px;
+            background-color: #bbb;
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .dot.active {
+            background-color: #717171;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="slider-container">
+        <div class="slider">
+            <div class="slide active">
+                <img src="sekil1.jpg" alt="Şəkil 1">
+            </div>
+            <div class="slide">
+                <img src="sekil2.jpg" alt="Şəkil 2">
+            </div>
+            <div class="slide">
+                <video width="800" height="400" muted>
+                    <source src="video.mp4" type="video/mp4">
+                    Sənin brauzerin videonu dəstəkləmir.
+                </video>
+            </div>
+        </div>
+
+    </div>
+    <button class="prev">&#10094;</button>
+    <button class="next">&#10095;</button>
+
+    <div class="dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+    </div>
+
+
+    
+    <script>
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let currentSlide = 0;
+        let autoPlayInterval;
+
+        function showSlide(index) {
+            slides[currentSlide].classList.remove('active');
+            dots[currentSlide].classList.remove('active');
+
+            currentSlide = (index + slides.length) % slides.length;
+
+            slides[currentSlide].classList.add('active');
+            dots[currentSlide].classList.add('active');
+
+            // Video avtomatik oxuma funksiyası
+            const video = slides[currentSlide].querySelector('video');
+            if (video) {
+                video.play();
+            }
+        }
+
+        function nextSlide() {
+            showSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            showSlide(currentSlide - 1);
+        }
+
+        function autoPlay() {
+            autoPlayInterval = setInterval(nextSlide, 6000);  // Hər 6 saniyədə avtomatik keçid
+        }
+
+        document.querySelector('.next').addEventListener('click', () => {
+            clearInterval(autoPlayInterval);  // Manuel keçid zamanı avtomatik keçidi dayandırır
+            nextSlide();
+            autoPlay();  // Yenidən avtomatik keçidi işə salır
+        });
+
+        document.querySelector('.prev').addEventListener('click', () => {
+            clearInterval(autoPlayInterval);
+            prevSlide();
+            autoPlay();
+        });
+
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                clearInterval(autoPlayInterval);
+                showSlide(index);
+                autoPlay();
+            });
+        });
+
+        // Slideri avtomatik başlatmaq
+        autoPlay();
+    </script>
+</body>
+
+</html>

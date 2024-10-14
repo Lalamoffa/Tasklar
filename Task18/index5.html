@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="az">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tab Nümunəsi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .tabs {
+            display: flex;
+            justify-content: flex-start;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .tablink {
+            background-color: #f4f4f9;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .tablink:hover {
+            background-color: #ddd;
+        }
+
+        .tablink.active {
+            background-color: #ccc;
+        }
+
+        .tabcontent {
+            display: none;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-top: none;
+        }
+
+        h3 {
+            margin-top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="tabs">
+        <button class="tablink" onclick="openTab(event, 'Tab1')">Tab 1</button>
+        <button class="tablink" onclick="openTab(event, 'Tab2')">Tab 2</button>
+        <button class="tablink" onclick="openTab(event, 'Tab3')">Tab 3</button>
+    </div>
+
+    <div id="Tab1" class="tabcontent">
+        <h3>Tab 1 Məzmunu</h3>
+        <p>Bu, Tab 1-in məzmunudur.</p>
+    </div>
+
+    <div id="Tab2" class="tabcontent">
+        <h3>Tab 2 Məzmunu</h3>
+        <p>Bu, Tab 2-in məzmunudur.</p>
+    </div>
+
+    <div id="Tab3" class="tabcontent">
+        <h3>Tab 3 Məzmunu</h3>
+        <p>Bu, Tab 3-in məzmunudur.</p>
+    </div>
+
+    <script>
+        // Tab açma funksiyası
+        function openTab(event, tabName) {
+            // Bütün tabcontent elementlərini gizlədir
+            const tabcontent = document.getElementsByClassName("tabcontent");
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Bütün tablink düymələrindən "active" sinifini silir
+            const tablinks = document.getElementsByClassName("tablink");
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Seçilmiş tabı göstərir və müvafiq tab düyməsini "active" edir
+            document.getElementById(tabName).style.display = "block";
+            event.currentTarget.className += " active";
+
+            // Seçilmiş tabı yerli saxlama (Local Storage) ilə yadda saxlayırıq
+            localStorage.setItem("activeTab", tabName);
+        }
+
+        // Səhifə yüklənəndə aktiv olan tabı bərpa edir
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedTab = localStorage.getItem("activeTab");
+            if (savedTab) {
+                // Əgər əvvəlcədən yadda saxlanmış tab varsa, onu açırıq
+                const activeTabLink = document.querySelector(`[onclick="openTab(event, '${savedTab}')"]`);
+                activeTabLink.click();
+            } else {
+                // Yoxdursa, default olaraq ilk tabı açırıq
+                document.querySelector(".tablink").click();
+            }
+        });
+
+    </script>
+</body>
+
+</html>
